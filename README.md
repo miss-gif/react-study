@@ -204,6 +204,20 @@
 
 -`git init`
 
-### 3.2 깃으로 관리하는 파일을 추가 해 주기
+### 3.2 깃으로 관리하는 파일을 추가하기
 
 - `git add .`
+
+### 3.3 깃으로 작업 내역을 기록한다.
+
+- `git commit`
+
+### 3.4 깃을 깃허브로 업로드 한다.
+
+- `git remote add 이름 http주소`
+- `git remote add origin https://github.com/miss-gif/blog-kakaobrain-miss-gif.git`
+- `git remote -v`
+
+### 3.5 깃을 깃허브로 push 후 종료한다.
+
+- `git push -u origin main`
