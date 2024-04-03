@@ -221,3 +221,12 @@
 ### 3.5 깃을 깃허브로 push 후 종료한다.
 
 - `git push -u origin main`
+
+### 3.6 브랜치(나뭇가지) 나누기
+
+- `git branch 이름`
+- `git branch 01-css-basic` 엔터
+
+### 3.6 브랜치 목록 보기
+
+- `git branch` 엔터
