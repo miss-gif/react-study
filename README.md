@@ -24,7 +24,7 @@
 - 모서리를 둥글게
   : `border-radius: 20px;`
 
--내용 일부 가리기
+- 내용 일부 가리기
 : `overflow:hidden;`
 
 - 배경에 이미지 넣기
