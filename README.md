@@ -355,7 +355,7 @@ whereTag.innerHTML = slideTags;
 ```
 
 - swiper 를 작동시킨다.
-  : html 완료 후 슬라이드 생성하자
+  : html 완료 후 슬라이드 생성하자.
 
 ```js
 // DOM 을 다루려고 하는 목적인 경우
@@ -378,52 +378,470 @@ window.addEventListener("load", function () {
         const data = result[i];
         // 템플릿 문법 필요 (html)
         const test = `<div class="swiper-slide">
-          <a href="${data.url}" style="background:url('./images/${data.pic}') no-repeat center / cover; ">
+          <a href="${data.url}" style="background:url('./images/${data.pic}') no-repeat center; background-size: cover;">
             <p class="slide-title">
               ${data.title}
             </p>
           </a>
         </div>`;
-        slideTags += test;
+        slideTags = slideTags + test;
       }
+
       // 2. 자료를 이용해서 슬라이드에 배치할 html 을 만든다.
       // 원하는 장소에 출력해 보자.
-      const whereTag = this.document.querySelector(".topslide .swiper-wrapper");
+      const whereTag = document.querySelector(".topslide .swiper-wrapper");
       whereTag.innerHTML = slideTags;
 
+      // 3. html 완성후 swiper 를 생성한다.
       // 기본코드를 넣어보자.
       var topSlide = new Swiper(".topslide", {});
     })
     .catch((error) => {
       console.log(error);
     });
-
-  // 3. html 완성후 swiper 를 생성한다.
 });
 ```
 
 # Swiper Slide 적용해 보기 6.
 
-- [옵션](https://swiperjs.com/demos#autoplay)
+- [옵션](https://swiperjs.com/demos)
+  : loop
+  : autoplay
+  : effect
+  : speed
+  : pagenation(https://swiperjs.com/demos#pagination)
+  : 페이지네이션 디자인 수정하기 참조!
+  ```css
+  .bannerslide .swiper-pagination {
+    bottom: 30px !important;
+  }
+  .bannerslide .swiper-pagination-bullet {
+    width: 4px !important;
+    height: 4px !important;
+    background: #ffffff !important;
+    opacity: 0.7 !important;
+    border-radius: 4px !important;
+    transition: width 0.3s;
+    margin: 0 2px !important;
+  }
+  .bannerslide .swiper-pagination-bullet-active {
+    background: #ffffff !important;
+    opacity: 1 !important;
+    width: 20px !important;
+  }
+  ```
 
-: 페이지네이션 디자인 수정하기 참조!
+# js 4장
+
+- var 변수명 = 변수값;
+- let 변수명 = 변수값;
+- const 변수명 = 변수값;
+
+```txt
+  호이스팅(hoisting) 은 변수, 함수를 선언하지 않았는데도
+  사용할 수 있음. (hoisting 이 일어나지 않도록 주의: var 쓰지 말자)
+```
+
+# css 의 opacity 와 position 의 이해.
+
+- opacity 는 DOM의 내용까지도 투명도가 적용된다.
+- position
+  : position 중에 absolute 로 픽셀 위치 설정의 경우 주의
+  : 반드시 position 코드가 바깥 영역에도 있어야 합니다.
+  : position 중에 fixed 는 웹브라우저를 기준으로 배치
+  : fixed 는 반드시 left, top, right, bottom 을 주자
+  : fixed 는 보통 z-index 를 준다.
+  : fixed 는 높이에 반영이 안되므로 주의하자.(레이아웃 배치 문제)
 
 ```css
-.bannerslide .swiper-pagination {
-  bottom: 30px !important;
+대상 {
+  position: relative;
 }
-.bannerslide .swiper-pagination-bullet {
-  width: 4px !important;
-  height: 4px !important;
-  background: #ffffff !important;
-  opacity: 0.7 !important;
-  border-radius: 4px !important;
-  transition: width 0.3s;
-  margin: 0 2px !important;
+대상 {
+  position: absolute;
 }
-.bannerslide .swiper-pagination-bullet-active {
-  background: #ffffff !important;
-  opacity: 1 !important;
-  width: 20px !important;
+대상 {
+  position: fixed;
 }
+```
+
+- 주의하자
+
+```css
+.box-wrap {
+  position: relative;
+  margin: 0 auto;
+  width: 600px;
+  height: 300px;
+  background: orange;
+}
+.box {
+  position: absolute;
+  right: 80px;
+  bottom: 20px;
+
+  width: 200px;
+  height: 200px;
+  background: red;
+}
+```
+
+# js 윈도우 스크롤의 위치를 알아내기
+
+```js
+window.addEventLinstenr("scoll", function () {
+  // 하고 싶은 일
+});
+```
+
+```js
+window.addEventLinstenr("scoll", function () {
+  // 스크롤바의 위치
+  const scY = window.scrollY;
+});
+```
+
+# js 로 css 의 클래스 동적으로 활용하기
+
+```js
+// DOM 찾아서 변수로 레퍼런스 하기
+const tags = document.querySelector(".클래스명");
+// DOM 을 이용해서 선택한 곳에 적용된 css 클래스 목록 추가
+tags.classList.add("클래스명");
+// DOM 을 이용해서 선택한 곳에 적용된 css 클래스 목록 제거
+tags.classList.remove("클래스명");
+// DOM 을 이용해서 선택한 곳에 적용된 css 클래스 목록 추가 / 제거
+tags.classList.toggle("클래스명");
+// DOM 을 이용해서 선택한 곳에 적용된 css 클래스 목록 포함여부
+tags.classList.contain("클래스명");
+```
+
+# js 의 함수란 ? 1번
+
+- 동일한 코드가 2번 이상 반복되면 함수를 만들려고 노력하자.
+- 반복은 되지 않더라도 하나의 기능이 너무 복잡하면 함수를 만들려고 노력하자.
+- 복잡하지는 않는데 코드가 너무 길어지면 함수로 묶어주려고 노력하자.
+- 실행의 결과가 그때, 그때 다른 경우에도 함수를 만들자.
+
+```js
+// 함수만들기(함수선언)
+function 적절한동사() {
+  // 하고 싶은 일 작성 ....
+}
+// 함수사용하기(함수호출)
+적절한동사();
+// 예 (함수 체이닝)
+fetch().then().then().catch();
+```
+
+- 함수는 무조건 1개의 값을 리턴하도록 규정되어 있습니다.
+- 리턴이라는 것은 함수 실행() 후 값을 돌려주는 것을 말합니다.
+
+```js
+function 함수명() {
+  // 몰래 작성됨 return undefined;
+}
+함수명();
+```
+
+# JS 5장
+
+```txt
+코딩에서 값이라고 할 수 있는 것은
+  변수에 할당(보관한)된 결과를 말한다.
+
+  변수란? 컴퓨터 공간에 이름을 붙여둔 방 한개
+
+  표현식이
+
+  평가(식을 해석해서 값을 생성하고 참조하는 것)된
+   결과를 말한다.
+
+
+   리터럴 이란?
+   사람이 이해할 수 있는 문자 또는 약속된 기호를
+   사용해서     값   을    생성하는 표기법
+
+   리터럴은 값을 평가해서 코드에 활용하기 위한 문법
+
+
+  "function"
+  var function
+
+  function gg(){}
+
+  표현식 expressioin
+  : 리터럴 값으로 평가가 되면 OK!
+     5  숫자 리터럴 값으로 평가가 되면 OK!
+     "안녕" 문자열 리터럴 값으로 평가가 되면 OK!
+
+     var num = 5;
+     var num:number = 5;
+
+
+  문(statement) :  프로그램을 구성하는 기본단위/최소 실행단위
+
+  {}
+
+
+  var foo = x = 100
+```
+
+# js 의 함수란 ? 2번
+
+- 동일한 코드가 2번 이상 반복되면 함수를 만들려고 노력하자.
+- 반복은 되지 않더라도 하나의 기능이 너무 복잡하면 함수를 만들려고 노력하자.
+- 복잡하지는 않는데 코드가 너무 길어지면 함수로 묶어주려고 노력하자.
+- 실행의 결과가 그때, 그때 다른 경우에도 함수를 만들자.
+- 함수 정의 문
+
+```js
+function 함수이름() {
+  // 할일
+}
+```
+
+- 함수 실행/호출(call) 문
+
+```js
+함수이름();
+```
+
+# js 의 함수의 매개변수란 ? 3번
+
+- 초기 기능 즉, 함수를 정의하기 전에 기능 상 자주 변하는 데이터를 고민한다.
+- 기능은 스크롤시 특정 위치 보다 커지면 css 추가하기
+- 이전 코드는 좋지 않은 코드라고 생각이 든다.
+- 함수는 스스로 지역 즉, Local 영역(Scope) 에서 처리되는 것이 좋다고 봐요.
+- `처리` 라는 말은 변수를 찾는다 던가
+- `처리` 라는 말은 잘못된 값이 전달되어서 오류가 나는 것을 방지하는 것을 말합니다.
+
+```js
+// 홍길동에게 줄 함수
+const a = 5;
+const b = 0;
+function 나누기(_num1, _num2) {
+  if (_num2 === 0) {
+    alert("나눗셈에서 0은 안됩니다");
+  }
+  return _num1 / _num2;
+}
+나누기(a, b);
+```
+
+# JS 6장
+
+```txt
+   데이터 타입 ( Data Type ) : 자료형
+   타입 이라는 말이 자료의 형태
+   JS의 리터럴로 처리될 수 있는 자료의 종류
+
+   타입 스크립트 : 데이터 종류를 표현해 주는 방식
+
+    '5'   , "55", `555`
+    'a'   , "ab", `55555`
+
+    "안녕
+      반가워
+    "
+    `안녕 ${100}
+      반가워
+    `
+
+    undefined 와  null 헷갈려요.
+    const a = undefined; (모르겠다.)
+    const b = null; (개발자가 직접 진짜 값이 비었다고 알려줌)
+
+    Symbol 은 중복되지 않는다고 보장하는 값 타입
+    Symbol()
+
+    데이터 타입 ( Data Type ) : 자료형
+    불변성(immutable) : 데이터 값이 변경될 수 없다.
+    데이터는 immutable 해야 합니다.
+    상태는   immutable 해야 합니다.
+    state는  immutable 해야 합니다.
+
+    1 = 1;
+
+
+    가변성(mutable) : 데이터 값이 변경될 수 있다.
+
+
+    원시데이터 6가지가 있는데 immutable 한 데이터 타입입니다.
+
+    number   1
+    string   'a'
+    undefined undefined
+    boolean    true, false
+    null       null
+    symbol     Symbol() 만들어진 값은 변경 불가
+
+     복합형 데이터 객체
+     객체는 원시데이터를 모아서 저장하고 관리하는 것.
+
+    // 묶어라, Block
+    const hong = {
+        age: 20,
+        marry : true
+     }
+
+
+     // 내가 c 라는 이름으로 저장할 거야
+     // c 라는 공간은 글자를 보관할 거야
+     // 그러니, 공간을 좀 마련해 줄래?
+
+     // C 를 사용하는 프로그래머는
+     char c = 'a'
+     int num = 5;
+
+     // js 를 사용하는 프로그래머는
+     const c = 'a';
+     const num = 5;
+
+     // ts 를 사용하는 프로그래머는
+     const c:string = 'a';
+     const num:number = 5;
+
+
+     // 오늘, 그리고 다음을 위해서 꼭 알아야 하는 단어
+
+     1. 데이터 타입 : 자료(리터럴 값)의 종류
+
+     2. js 에서는 값 리터럴에 따라 변수의 종류를 타입추론 한다.
+
+     3. 타입을 추측해서 프로그래머에게 물어보지않고 타입을 변경한다. (암묵적 타입변경)
+
+        let a = 1;
+        a = "안녕";
+
+        2번 3번은 원하지 않는 결과를 언젠가 실행됩니다.
+        의도하지 않은 오류를 일으킨다.
+
+        TypeScript
+
+        let a:number = 1;
+        a = "안녕"; // 오류 발생
+
+  // 코딩 할 때 스스로 고민해 보자.
+
+   1. 꼭 필요한 경우인지를 파악하고 변수를 만들자.
+   2. 변수 유효범위는 좁게 (블록을 가능하면 쓰자)
+   3. 전역변수는 가능하면 만들지 말자.
+   4. 변수는 상수를 쓰세요.
+
+      let a = 1; (X)
+
+      const count = 1;
+
+      {
+        let count = 2;
+      }
+```
+
+# 함수의 이해 7번
+
+1. 함수를 만들어야겠다고 판단하는 케이스
+
+- 동일한 코드가 2번 이상 반복되면 함수를 만들려고 노력하자.
+- 반복은 되지 않더라도 하나의 기능이 너무 복잡하면 함수를 만들려고 노력하자.
+- 복잡하지는 않는데 코드가 너무 길어지면 함수로 묶어주려고 노력하자.
+- 실행의 결과가 그때, 그때 다른 경우에도 함수를 만들자.
+
+2. 왜 화살표 함수를 만들지?
+
+- 트랜드를 쫒아가자. (있어보이잖아요.)
+- 코드가 해석하기 더 어려워집니다.
+
+```js
+function say() {
+  console.log("안녕", this);
+}
+```
+
+: step 1.
+
+```js
+say() => {
+  console.log("안녕", this);
+}
+```
+
+: step 2.
+
+```js
+const say = () => {
+  console.log("안녕", this);
+};
+```
+
+: 매개 변수가 있는 경우
+
+```js
+function say(_who) {
+  console.log("안녕", _who, this);
+}
+```
+
+: step 1.
+
+```js
+say(_who) => {
+  console.log("안녕", _who, this);
+}
+```
+
+: step 2.
+
+```js
+const say = (_who) => {
+  console.log("안녕", _who, this);
+};
+```
+
+- this 를 정확히 지정하기 위해서 활용한다.
+  : 화살표 함수를 사용하면 일반적으로 큰 고민사용하면 됩니다.
+  : 하지만, 함수 안에 this 를 작성하시면 상황이 달라집니다.
+  : 화살표 함수에서 this 는 window 를 가르킵니다.
+  : 결론은 화살표 함수에서 this 를 사용한다면 console.log(this) 확인필수!
+  : 화살표 함수는 예전 일반 함수에서 window 를 참조하지 못하는 문제를 해결함.
+
+```js
+// this 의 차이(어렵지만 이해해야 해요.)
+const btWrap = document.querySelector(".bt-wrap");
+// 일반 함수는 this 가 타이핑이 된 곳을 가르킨다.
+btWrap.addEventListener("click", function () {
+  console.log(this);
+});
+// 화살표 함수는 this 가 window 를 가르킨다.
+btWrap.addEventListener("click", () => {
+  console.log(this);
+});
+```
+
+# 배열의 이해
+
+- [요소, 요소, 요소, 요소]
+  : 요소로 담을 수 있는 자료형은 7가지 입니다.
+- 배열의 속성(배열을 위한 특별한 변수)은 1개가 있습니다.
+  : length 가 있어요. (요소의 개수)
+- 배열의 메소드(배열을 위한 특별한 함수)는 너무 많아요.
+- 상당히 많은 메소드(배열을 위한 함수) 가 있습니다.
+- 배열.forEach((요소)=>{}), 배열.map((요소)=>{}), 배열.filter((요소)=>{}), 배열.find((요소)=>{})
+- 배열의 요소를 하나씩 접근해서 활용하기
+- 바보 카멜케이스 였는데. (배열.forEach ( ) )
+
+```js
+// 배열이라면 반복하자.
+result.forEach((item) => {
+  const tag = `<a href=${item.link} class="list-box">
+        <div class="list-box-img br-20" style="background: url('./images/${item.imgpath}') no-repeat center; background-size: cover"></div>
+        <div class="list-box-cate">
+          <img src="./images/icon/${item.icon}" alt="${item.category}" />
+          <span style="color:${item.txtcolor};">${item.category}</span>
+        </div>
+        <p class="list-box-title">${item.title}</p>
+        <span class="list-box-day">${item.day}</span>
+        </a>`;
+  allTag = allTag + tag;
+});
 ```
