@@ -646,6 +646,7 @@ function 나누기(_num1, _num2) {
     "
     `안녕 ${100}
       반가워
+    }
     `
 
     undefined 와  null 헷갈려요.
@@ -845,3 +846,368 @@ result.forEach((item) => {
   allTag = allTag + tag;
 });
 ```
+
+# JS 7장
+
+```txt
+operator (연산자)
+
+   이  항   :   2개의 항목 을 처리하는 연산자 값만들기
+   삼  항   :   3개의 항목 을 처리하는 연산자 값만들기
+   단  항   :   1개의 항목 을 처리하는 연산자 값만들기
+
+   +   -    *    /   % (모듈러 연산자)
+
+   5 % 3 = 2 (나누고 난 후 나머지 값, 게시판 목록..)
+
+    단  항   :   1개의 항목 을 처리하는 연산자 값만들기
+
+    let a = 1;
+    a = a + 1;
+    a++;    // 원 값에 1을 더하라
+    ++a;    // 원 값에 1을 더하라
+    --a;    // 원 값에 1을 빼라
+    a--;    // 원 값에 1을 빼라
+    for(let i = 0; i < 10; i++) {
+    }
+    장바구니 개수 추가
+    let bucket = 0;
+    bucket++;
+
+    알고리즘 공부
+    let a = 1;
+    let b = a++;   // b?  1   a = 2
+    let b = ++a;   // b? 2
+
+   1 + 2 = 3
+   '1' + 2 = "12"
+   글자도 더할 수 있다.
+
+   const filePath = "./images/"
+   const fileName = ".jpg";
+   for(let i = 0; i < 10; i++) {
+      const img = filePath + i + fileName;
+      const img = "./images/" + 0 + ".jpg";
+      const img = "./images/" + 1 + ".jpg";
+      const img = "./images/" + 2 + ".jpg";
+   }
+
+    처음 코딩 배우면 어려워 하는 것
+
+    문법
+        []  ....
+        for  문....
+        할당 문...
+        let num = 0;
+        num = num + 1;
+        num ++;
+        num += 1;
+
+==================== 적절한 구조를 어떻게? ====
+    변수, 함수, 객체 구조?
+
+
+   1 == '1'        같다 (true)
+   암묵적으로 타입 변환 시켜서 진행 :  나중에 오류의 원인
+   절대로 사용하지 마세요.
+
+
+   1 === '1'  다르다.
+     1. 먼저 데이터 종류 (data type) 비교합니다.
+     2. 데이터 값 (data value) 비교합니다.
+
+     !==
+
+
+
+     (조건) ? 참실행 : 거짓실행
+
+     (level > 10) ?  <div>주인님</div>    :   <div>일반회원</div>
+
+     if(isLogin) {
+
+        <div>"반가워"</div>
+
+     }else{
+
+        <div>회원가입</div>
+     }
+
+     const 객체 = {
+         프로퍼티명 : 프로퍼티값
+     }
+     객체 in 프로퍼티명
+     delete 객체.프로퍼티명;
+
+     const sw = new Swiper(".slide", {} )
+
+     const a = (1 + 10) * 100
+```
+
+- 함수 리턴의 이해
+
+```txt
+함수의 리턴 ?
+
+     골치아프지만 그래도 일단 알아는 둡시다.
+
+    1. 함수 정의
+     function 함수이름(매개변수) {
+     }
+
+    2. 함수 호출
+     const gogo = 함수이름(100); // gogo 에는 undefined;
+
+    3. 리턴이 여러개인 경우
+
+    : return 의 의미는 함수 결과값 돌려주기
+    : return 은 함수 종료하기
+
+     function 함수이름(매개변수) {
+        return 1;
+        return 2; // 영원히 실행이 안됨.
+     }
+
+```
+
+# JS 8장
+
+```txt
+제어문은 조건에 따라서 코드 진행 방향이 결정된다
+
+    고차함수 란 ? 함수의 매개변수로 함수를 전달한다.
+    window.addEventListener(문자열타입, 함수타입)
+    글자, 숫자, boolean, null, undefined, symbol
+     객체 : [], funciton, {} ...
+
+    버스를 기다린다.
+     300 번은 5분마다 온다.  둘다 시내로 가요
+     700 번은 10분마다온다.
+
+     if(300 번 === 버스번호) {
+
+     }else if(조건) {
+
+     } else {
+
+     }
+
+     조건문으로 if 와  switch 문이 있다.
+     주로~~~~   if 문을 우선 활용하세요.
+
+     그리고, 나중에 리액트 하실 때, reducer 라는 것을 할때
+     switch 를 그때 다시 접근하시길 권장해요.
+
+     for 문은 반복 횟수가 명확할 때 주로 사용
+     while 문은 반복 횟수가 불명확 할 때 주로 사용
+
+     for (var i = 0; i < string.length; i++) {
+
+           if(i === 3) {
+             break;
+           }
+
+           console.log("안녕 ^^")
+    }
+
+> 반복을 대체할 수 있는 다양한 기능*
+>
+- forEach 메서드 : 배열을 순회할 때 사용
+    [1,2,3]
+
+- for in 문 : 객체의 프로퍼티를 열거할 때 사용
+    {
+      age: 1,
+      marry: false,
+      nicName: "Chlie"
+    }
+
+- for of 문 : 이터러블(itrable : 순서가 있는)을 순회 가능
+
+
+```
+
+# JS 9장
+
+```txt
+     명시적 타입 변환
+      : 개발자가 타입을 강제 변환
+      : 타입캐스팅
+
+     암묵적 타입 변환 (코드에러가 아니고 원하는 결과가 아닌 경우)
+      : JS가 타입을 몰래 변환
+      : 타입 강제 변환
+      : 개발자가 결과를 예측할 수 있어야 합니다. (대비책)
+
+      :  + 연산자는
+            '글자' + '글자' = '글자'
+             숫자  +  숫자  =  숫자
+            '글자' + 숫자   = '글자'     원칙(일단 숫자로 바꾼다.)
+
+
+      :  - 연산자는
+            '글자' - '글자' = NaN
+             숫자  -  숫자  =  숫자
+            ' 5 ' - 숫자   = '글자'     원칙(일단 숫자로 바꾼다.)
+
+            console.log(typeof 결과)
+
+
+        : Boolean    true/false
+
+          Falsy 한 것들을 반드시 알아야해요  결과값 false 가 나옴
+            false, undefined, null, 0, NaN, ''
+
+            if (userId) {
+               alert("아이디가 있어요")
+            }else{
+               alert("아이디가 없어요")
+            }
+
+      문자열 데이터 지정 만들기
+        변수 + ''
+
+      숫자 데이터 지정 만들기
+        parseInt(변수)     :    정수 만들기
+        parseFloat(변수)   :    실수 만들기
+
+단축평가
+ : 리액트에서 엄~~~~~~~~~~~~청 사용합니다.
+ : 반드시 정말 알아야 합니다.
+
+ : false, undefined, null, 0, NaN, ''
+
+ - 논리곱(&&)
+   true && true  결과는 true 입니다.
+
+   "비욘세" && "디카프리오"  결과는 죄송하지만 true 가 아닙니다.
+                            결과는 "디카프리오"
+
+   const isLogin = true;
+      isLogin &&  "<div>안녕</div"> 결과는 "<div>안녕</div">  출력
+
+ - 논리합(||)
+
+   true   || true  결과는 true 입니다.
+   '10억' || '1원'    // '10억'
+   ''     || '1원'    // '1원'
+
+- 옵셔널 체이닝 나오게 된 이유  (?.)
+
+   : Syntax 에러로 js 가 멈추고 나머지 전체 js 중지..
+   var elem = null;
+   var result = elem.gogo;
+
+   : 해결하기 위해서
+   var elem = null;
+   var result = elem && elem.gogo;
+
+   : Synatax 에러로 js 가 멈추지 않기를 바란다.
+
+   var elem = null;
+   var result = elem ? elem.gogo : undefined;
+   var result = elem ?. gogo
+
+- 병합연산자 (??)
+
+const result = null   ?? "없군요"   결과값은 "없군요"
+const result = "안녕" ?? "없군요"    결과값은 "안녕"
+```
+
+# JS 10장
+
+```txt
+- 너무 중요해요.
+   : 활용빈도 말도 안되게 높고,
+   : 본인 및 타소스를 이해하려면 알아야 해요.
+   : 핵심은 JS 의 모든 자료타입은 객체입니다.
+
+   - 타입(js가 리터럴로 인정하는 자료의 종류)
+
+   : 원시 타입
+    ( string, number, null, undefined, bool, symbol )
+
+   : 객체타입
+     ( [ 원시타입들... ] ,  { 속성명:원시타입 }, function ....  )
+
+
+   - 객체 구성 ( 객체가 가진 데이터를 객체 내에서 제어하겠다.)
+
+   : 객체에 포함된 변수를 `프로퍼티/속성` 이라고 호칭
+   : 객체에 포함된 함수를 `메소드/기능` 이라고 호칭
+      const obj = {
+
+        "프로퍼티명" : 원시값 또는 다른 객체,
+        "프로퍼티명" : string,
+        "프로퍼티명" : [],
+        "프로퍼티명" : {},
+        "메소드명" : function () {},
+      }
+
+    - 객체 만드는 법
+       인스턴스 란 ?
+          : 남에게 말해주기가 어려운 개념
+          : `객체를 생성하는 방법을 활용` 해 생성한 변수를 인스턴스라고 한다.
+
+     1. 객체 리터럴 문법 : 활용빈도 높다. const 인스턴스 = {}
+
+     const  인스턴스 = {
+         "myName"  : 5,
+          myJob     : 5,
+         "my-age"   : 5,
+         say   : function () { this["my-age"]  },
+         sayHi : () => { this["my-age"]  },
+     }
+     인스턴스.myName
+     인스턴스["myJob"]
+     인스턴스.say()
+     인스턴스["say"]()
+     인스턴스.gogo = "안녕"
+
+      : 객체 리터럴 문법 보완 및 축약 (ES6)
+
+        // 기본형
+        const 인스턴스변수 = {
+          프로퍼티명: 프로퍼티값 ,
+          프로퍼티명: 프로퍼티값 ,
+          메소드명 : function() { },
+          메소드명 : function() { }
+        };
+
+        const age = 10;
+        const nickName = "홍길동";
+
+        // 외부 변수 전달 받는데    이름이 똑~~ 같다?
+        const person = {
+           age      : age,
+           nickName : nickName
+        };
+
+        //  축약형
+        const person = {age, nickName};
+
+        // 메소드 기본형
+        const person = {
+           say      : function() { }
+        };
+
+        // 메소드 축약형
+        const person = {
+           say() { }
+        };
+
+
+
+     2. Object 함수 문법
+
+     3. 생성자 함수 문법 : 활용빈도 높다.
+
+     4. Object.create 함수 문법
+
+     5. class 함수 문법 : 활용빈도 높다.
+```
+
+# 카카오 브레인 블로그 사이트
+
+- 반드시 저작권을 밝혀야 한다.
+- 첫 화면만 연습 하면됩니다. (첫 화면이 가장 난이도가 높다)
