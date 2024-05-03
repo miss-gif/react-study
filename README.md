@@ -28,6 +28,33 @@
 background: url("../images/icon/icon-search.png");
 ```
 
+## 1.3. js를 React 로 마이그레이션 진행
+
+### 1.3.1. load 가 useEffect 로 변경
+
+```js
+window.addEventListener("load", function () {});
+
+useEffect(() => {
+  return () => {};
+}, []);
+```
+
+### 1.3.2. querySelector 가 useRef(null) 로 변경
+
+```js
+const tag = document.querySelector(".bt");
+
+const tag = useRef(null);
+
+useEffect(() => {
+  // tag.current 로 접근
+  return () => {};
+}, []);
+
+<div ref={tag}> </div>;
+```
+
 # JS 14 장
 
 ```txt
@@ -49,3 +76,47 @@ background: url("../images/icon/icon-search.png");
   private   : 외부에서 절대로 사용할 수 없다.
   protected : 허용한 대상만 사용할 수 있다.
 ```
+
+# JS 15장
+
+```txt
+ var 는 없다 생각해요.
+ 변수 를 만들때 고민이 생겨요.
+
+ const 변수이름  :  값을 고정시키겠다.
+ let 변수이름    : 값이 수시로 바뀌어집니다.
+
+const 사용하실 때 오해의 소지가 있는 경우
+
+ 정군은 const 는 절대로 값이 안변한다.
+ 값을 변경하려고 하면 에러난다.
+ const age = 15;
+ age = 100; // 에러.. conatant value...
+
+
+ const 객체 = {}   오해의 소지가 발생합니다.
+
+ const 정군 = {} // 이미 주소는 고정이 되어 버렸다.
+ 정군 = "안녕"   //  주소를 교체 하려고 했다. 그래서 const 에 위배된다. 에러
+
+ // 주소를 교체하는 것이 아니고, 안쪽의 연결된 내용을 수정한다.
+
+ 정군.age = 100;
+ 정군["nicName"] = "hong guil dong";
+```
+
+# 실제 업무에서 알아야 하는 상식
+
+- nvm (Node Version Manger) 설치 및 활용
+  : https://github.com/coreybutler/nvm-windows/releases
+  : 설치 버전 확인 `nvm -v`
+  : 설치 가능한 버전 목록 `nvm list available`
+  : 설치 하기 `nvm install 버전`
+  : 현재 사용중인 Node 버전 확인하기 `node -v`
+  : 현재 설치된 Node 목록 확인 `nvm ls`
+  : 사용할 Node 버전 선택하기 `nvm use 버전`
+  : Node 설치된 경로 알아보괴 `which node`
+
+- npm 보다는 yarn 선호
+  : Node Package Manager (node_modules)
+  : package.json 의 dependency 목록을 참조
