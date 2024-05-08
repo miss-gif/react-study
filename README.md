@@ -281,3 +281,223 @@ const 사용하실 때 오해의 소지가 있는 경우
      setAge( 이전값 => { return 새로운값 }  ) // 함수 방식(새로운 값 나옴)
      setAge( prev => { return prev+1 }  ) // 함수 방식(새로운 값 나옴)
 ```
+
+# JS 17 장
+
+```txt
+ 1. 객체 가 뭘까?
+
+   : 객체를 만든다는 말은 데이터를 설계하는 것.
+   : 예) 유아제품을 판매하는 서비스에서 제품을 표현한다면?
+
+   : 여러 개의 데이터와 여러 개의 기능을 묶어서
+     마치 데이터종류처럼 사용할 수 있다는 장점
+
+   하나의 이름으로  {
+      데이터... 가지고 있고,
+      데이터... 가지고 있고,
+      데이터... 가지고 있고,
+      기능...   가지고 있고,
+      기능...   가지고 있고,
+    }
+
+
+    const Person = {
+       age: 10,
+       nickName: "홍길동"
+    }
+
+    Person 의 데이터 타입(종류)
+    -  객체:Person ====> { age:number, nickName:string}
+
+2. 객체 는 정말 좋은데 (다양한 자료를 묶어서 이름 한개로 표현 가능)
+   만드는 방법이 2가지 형태(리터럴, 함수)를 띈다.
+
+   2.1. 객체 리터럴 (장점: 가독성, 관리 손이 고생,  단점: CRUD)
+        const Obj = { name: "귀마개", count:10}
+        const Good_1 = { name: "귀마개", count:10, descript:"df"}
+        const Good_2 = { name: "귀마개", count:10, descript:"df"}
+        const Good_3 = { name: "귀마개", count:10, descript:"df"}
+        const Good_4 = { name: "귀마개", count:10, descript:"df"}
+        const Good_5 = { name: "귀마개", count:10, descript:"df"}
+        const Good_6 = { name: "귀마개", count:10, descript:"df"}
+        const Good_7 = { name: "귀마개", count:10, descript:"df"}
+        const Good_8 = { name: "귀마개", count:10, descript:"df"}
+        const Good_9 = { name: "귀마개", count:10, descript:"df"}
+        const Good_10 = { name: "귀마개", count:10, descript:"df"}
+
+   2.2. 객체 생성자(constructor) 함수 (Object) 사용
+
+
+     Object() : ? 함수 call 하는 구나.
+
+     new Object()
+      : new 함수 call 하는 구나.
+      : new는 문법 Object() 객체 생성
+
+     2.2.1. 관례
+      : 개발자가 함수의 모양만 봐도 객체생성함수/ 일반함수 인지 구별이 가능하다.
+
+       Swiper()
+       Axios()
+
+      : 일반적으로 call 하는게 아니다를 표현한다면
+        new Swiper()
+        new Axios()
+
+    2.2.2.  함수 안쪽에 this 는 죄송하게도 call 방식에 따라서 this 의 값은 다르다.
+
+      function Foo() {
+         //this
+         goto: function () {
+                this
+                }
+      }
+
+      Foo(); // this 는 window
+
+      new Foo(); // this 는 만들어질 객체 (인스턴스 : 앞으로 보관될 것)
+
+      const go = new Food()
+      go.goto(); // 여기서 this는     . 앞에 것 즉, go 를 가르킵니다.
+
+  2.2.3. 제발 용도를 구분하셔서 함수 call 과   new 객체생성자함수 를 구분하셔서
+         리턴을 하셔야 해요.
+
+      :  일반 함수는 자유롭게 return  값;
+      :  객체생성용 함수는 제발 return 적지 마세요.
+
+  2.2.4 constructor 함수 / none-constructor 함수
+
+      : 모든 함수 형태는 어디에 작성을 하든 new 사용가능 (constructor)
+
+      : 근데, ES6 도입 후 new 사용못하는 함수
+        (화살표함수, 축약메소드 함수 none-constructor)
+
+  2.2.5.  new로 생성된 객체(인스턴스)의 원본확인 연산자 instanceof
+
+
+
+   2.3. 클래스 함수 사용 (25장에서 등장)
+```
+
+# 리액트 useState 정리
+
+```txt
+
+  1. 매개변수이름 은 관례상 props 라고 작성합니다.
+
+   const MbHeader = (props) => {
+      return ( .....)
+   }
+
+   <Header clickMbbt={clickMbbt} age={10} ></Header>
+
+   참조법 1.
+   const MbHeader = (props) => {
+
+      // 참조가능 : 함수이구나
+      props.clickMbbt()
+
+      // 참조가능 : 숫자구나
+      props.age;
+
+      return ( .....)
+   }
+
+   참조법 2.
+   const MbHeader = (props) => {
+
+      // 참조가능 : 함수이구나
+      const clickMbbt = props.clickMbbt;
+      clickMbbt();
+
+      // 참조가능 : 숫자구나
+      const age = props.age;
+      age;
+
+      return ( .....)
+   }
+
+   참조법 3.
+   const MbHeader = ({clickMbbt, age}) => {
+
+      // 참조가능 : 함수이구나
+      clickMbbt();
+      // 참조가능 : 숫자구나
+      age;
+
+      return ( .....)
+   }
+
+  2. 리액트 용 변수 즉, useState 이해
+
+  :  컴포넌트에 새로고침을 진행하도록 한다. ( useEffect 를 강제 실행 )
+
+  :  useEffect 용도?
+     - 컴포넌트가 생성될 때 실행하고 싶은 것
+
+       useEfeect( () => {
+
+          // 죽어도 한번만 실행하라!
+
+       }, []);   // [] 에 아무것도 작성하지 않는다면.
+
+
+     - 컴포넌트가 제거될 때 실행하고 싶은 것
+
+       useEfeect( () => {
+
+         return () => {
+             // 죽을 때 한번만 실행한다.
+         }
+
+       }, []);
+
+     - 컴포넌트가 업데이트될 때 실행하고 싶은 것
+
+       useEfeect( () => {
+
+       }, [ 리액트변수 ]); // 작성을 해주면 해당 상태가 내용이 바뀌면 화면 고침
+
+  : 리액트 변수 만들기
+
+    const [get이름, set이름] = useState(초기값);
+    const [mbMenuOpen, setMbMenuOpen] = useState(false);
+
+  : 리액트 변수 값 고치기
+
+   - 이러시면 안되요.
+
+     get이름 = 값을 직접 입력은 반영안됨.
+     mbMenuOpen = true;  // 이러시면 반영안되요.
+
+   - 함수가 종료되어야 업데이트 된 결과를 참조할 수가 있다.
+
+   - 방식은 2가지
+     set이름(새로운 값);
+
+     set이름( (현재값) => {
+                      return 새로운값;
+                      }
+            );
+
+    - 예제 1)
+    const clickMbbt = () => {
+      setMbMenuOpen(새로운값);
+    };
+
+    - 예제 2)
+    const clickMbbt = () => {
+      setMbMenuOpen( (기존값) => { return 새로운값 } );
+    };
+
+    - 활용 예)
+   const clickMbbt = () => {
+
+    setMbMenuOpen((prev) => {
+      return !prev;
+    });
+
+   };
+```
