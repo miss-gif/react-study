@@ -501,3 +501,318 @@ const 사용하실 때 오해의 소지가 있는 경우
 
    };
 ```
+
+# JS 18장
+
+```txt
+ 1. 제가 생각하기에 면접에서 맘에 안들경우 나올 만한 질문
+ - 일급객체
+   : 익명 리터럴로 생성이 가능해야 인정
+   : 저장가능하니? 데이터 자료로
+     const go  = function () {}
+     const obj = {}
+
+   : 함수(매개변수) 및 리턴 가능?
+      function say( _val ){}
+      say(go)
+      say(obj)
+
+      useEffect( () => {
+          return () => {}
+      }, [])
+
+
+ 2. 유사 배열 객체 / 이터러블 (순회, 즉, 반복이 가능한.)
+  : Rest 파라메터 function (...args) {}
+
+  const arr = [5, 8, 77, 9, 7];
+
+  arr.reduce ( 함수 , 초기값 )
+
+  arr.reduce ( function (    )   {  } ,     0 )
+
+  arr.reduce ( function(이전요소, 다음요소) {  } ,     0 )
+
+  arr.reduce ( function(이전요소, 다음요소) {
+                         return 변경값 ;
+               } , 0 );
+
+
+const array1 = [1, 2, 3, 4];
+
+// 0 + 1 + 2 + 3 + 4
+const initialValue = 0;
+
+const sumWithInitial = array1.reduce( (accumulator, currentValue) => {
+                                             return accumulator + currentValue
+                                        },
+                                        initialValue,
+                                     );
+
+console.log(sumWithInitial);
+// Expected output: 10
+
+
+4. _ _ proto _ _ 는 객체의 prototype 요소에 접근할때 작성
+
+5. Prototype 은
+  - 상속 (extension) 구현하기 위해 활용
+  - 객체 생성자 함수로 호출할 수 있는 함수객체 만이
+    가지고 있는 속성이다.
+  - 객체 생성자 함수를 호출하면 인스턴스 변수를 만들어요.
+    const slide = new Swiper();
+    slide 에는 prototype 이라는 객체를 만들어 준다.
+
+```
+
+# JS 19장
+
+```txt
+프로토타입
+
+: 문법을 알아야 하는 이유는 유명한 소스를 분석해야 할 때가 옵니다.
+
+1. _ _ proto _ _
+
+: JS 에서 객체의 기본 속성을 알고 싶다.
+: _ _ proto _ _ 로 접근한다. (하지만 사용하지 마세요.)
+
+2. prototype
+
+: JS 에서 직접 기본 속성을 만들고 싶다!!!!
+: 만든다는 의미는 함수를 말합니다.
+: 여기서 함수는 객체를 생성하는 객체 생성자 함수를 말합니다.
+: 나는 객체의 기본 속성을 만들고 싶다. 라면
+- prototype.속성명 = 값;
+
+3. class
+: 객체를 생성하는 문법 중 하나
+: ES6에서 도입
+
+4. 객체 지향 프로그래밍
+ : OOP(Oriented Object Programming)
+ : 실세계에 존재하는 대상에 대해서 특징과 성질, 행동을
+   코드로 표현하겠다.
+ : pg 에서 활용할 특징, 행동만 별도로 뽑아서 설계를 추상화한다.
+ : 특징 또는 성질을 Properties, Attribute
+ : 행동을 Behavior, Method
+ : 객체는 Property, Method 를 가진 데이터
+
+ const Circle = {
+    radius: 3, // 속성명: 속성값   상태
+
+    getArea : function() {},    // method: method 기능
+
+    getArea() => {}    // method: method 기능
+ }
+
+5. 상속
+: 하나의 객체의 속성, 메소드를 다른 객체가 사용할 수 있도록 허용한다.
+: 그래서 똑 같은 기능을 다시 만들지 않아도 된다.
+: 그래서 똑 같은 속성을 다시 만들지 않아도 된다.
+
+: 아래  예제는 new 실행시 불필요하게 say 메서드가 만들어진다.
+
+ function 말해봐(단어) {
+     this.word = 단어;
+     this.say = function(){
+         console.log(this.word)
+     }
+ }
+
+ const 홍길동 = new 말해봐("밥은 먹고 다니니?")
+ const 둘리 = new 말해봐("뾰로롱")
+
+: 아래  예제는 new 실행시 불필요하게 say 메서드가 만들어진다.
+
+ function 말해봐(단어) {
+     this.word = 단어;
+ }
+
+ 말해봐.prototype.say = function(){
+     console.log(this.word)
+ }
+
+ const 홍길동 = new 말해봐("밥은 먹고 다니니?")
+ const 둘리 = new 말해봐("뾰로롱")
+
+ 홍길동.say();
+ 둘리.say();
+
+ 6. _ _ proto _ _
+  : JS 의 모든 객체가 가진 기본값
+
+ 7. prototype
+  : 오로지 함수 객체에서만 존재하는 것.
+  : 그래서 우리는 new 를 통해서 생성하므로
+  : 적극적으로 활용을 해서 진행한다.
+
+ 8. 오버라이딩
+  : protoype 기능 덮어쓰기
+  : 똑같은 이름으로 정의한다.
+
+ function 말해봐(단어) {
+     this.word = 단어;
+ }
+
+ 말해봐.prototype.say = function(){
+     console.log(this.word)
+ }
+
+ const 홍길동 = new 말해봐("밥은 먹고 다니니?");
+ // 인스턴스 변수에서 덮어쓰기
+ 홍길동.say = function(){
+    console.log("하하하하하하하")
+ }
+ 홍길동.say();
+
+ 9. instanceof
+
+ : 여기서 instance 란?
+
+  - new 로 만들어진 변수
+
+ : instance     of     어떤객체
+
+ : 인스턴스변수  instanceof 객체생성자함수
+
+ : 예)
+
+   정화섭 instanceof 사람 ====> true
+   정화섭 instanceof Animal ====> true
+
+   정화섭 instanceof Dog ====> false
+
+10. 정적인 property / method
+
+: 정적이라는 말은 객체생성자 함수에 고정시킨 속성과 메소드
+: 정적 ( static 이라는 단어)
+
+: 예)
+
+function Dog(name) {
+   this.name = name;
+}
+Dog.prototype.cry = function(){ console.log("왈왈왈") }
+
+// 정적인 속성(property)
+Dog.eye = 2;
+
+new 댕댕이 = new Dog("돌돌이");
+댕댕이.cry();
+댕댕이.eye; // 없다
+Dog.eye; // 정적인 static 속성
+
+댕댕이 instanceof Dog;   // true
+
+Math.PI;
+Math.round();
+
+10. in 연산자
+
+: 프로퍼티(키명) 있니?
+
+11. for ... in 문
+
+: for (변수명 in 객체) { ...}
+
+: 배열인 경우만 조심해서 사용하자.
+- 배열도 객체이니까.
+- 배열인 경우는 for...in 말고  forEach 를 쓰자
+
+12. for ... of 문
+:  앞으로 자주 쓰자. 가능하면 반복문에서
+```
+
+# 리액트 프로젝트 셋팅
+
+- 모든 프로젝트에서 공통 적용
+
+## 1. 단계
+
+### 1.1. 소문자 프로젝트 폴더 생성
+
+`npx create-react-app ./ --template typescript`
+
+### 1.2. GitHub 생성
+
+### 1.3. 프로젝트 폴더와 깃허브 연결
+
+### 1.4. 개발환경 셋팅
+
+- eslint 설정
+  : js 문법을 안내해 줌.
+  : 오류에 대해서 설명해 줌.
+  : 미리 문제발생할 소지가 있는 부분을 안내해 줌.
+  : 즉 코딩에 도움을 주는 도구.
+  : 프로젝트에서 전체 셋팅을 하는 것이 관례.
+  : 아래의 순서를 준수하자.
+  : `npm install eslint-plugin-react@latest --save-dev`
+  : `npm install eslint@8 --save-dev`
+  : `npx eslint --init`
+
+- prettier 설정
+  : 문서포맷 정리
+  : 들여쓰기, 따옴표, 세미콜론 등등등.
+  : `npm install --save-dev --exact prettier`
+  : 환경 설정 파일을 / 에 만든다
+  : 파일명은 약속이 되어 있다.
+  : `.prettierrc.json`
+
+  ```json
+  {
+    "singleQuote": false,
+    "semi": true,
+    "useTabs": false,
+    "tabWidth": 2,
+    "trailingComma": "all",
+    "printWidth": 80,
+    "arrowParens": "avoid",
+    "endOfLine": "auto"
+  }
+  ```
+
+- eslint & prettier 설정
+  : eslint 에서 prettier 의 설정 안내해 주도록 연결
+  `npm install eslint-config-prettier --save-dev`
+
+- .eslintrc.js 수정으로 마무리
+
+```js
+module.exports = {
+  env: {
+    browser: true,
+    es2021: true,
+  },
+  extends: ["eslint:recommended", "plugin:react/recommended", "prettier"],
+  overrides: [
+    {
+      env: {
+        node: true,
+      },
+      files: [".eslintrc.{js,cjs}"],
+      parserOptions: {
+        sourceType: "script",
+      },
+    },
+  ],
+  parserOptions: {
+    ecmaVersion: "latest",
+    sourceType: "module",
+  },
+  plugins: ["react"],
+  rules: {},
+};
+```
+
+### 1.5. 관련 라이브러리 설치
+
+- axios
+- react router dom
+- emotion
+
+### 1.6. 기본 퍼블리싱
+
+- public/www 폴더 안에 작업 진행
+
+### 1.7. 기본 리액트작업
