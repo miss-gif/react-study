@@ -816,3 +816,56 @@ module.exports = {
 - public/www 폴더 안에 작업 진행
 
 ### 1.7. 기본 리액트작업
+
+# JS 21장
+
+```txt
+빌트인  ( 미리 작성되어 있는 JS )
+JS 라면 가지고 있어야 하는 내용을
+MS, Apple, Google, ... 개발자
+
+- 웹브라우저
+- Node.js
+
+
+  const go = "안녕"; // 기본(원시)
+
+  . 찍고 접근하면 속성에 접근
+  ? go 는 객체도 아닌데 어떻게?
+
+  go.length
+  go["length"]
+
+  const go = new String("안녕")
+
+  go.length
+  go["length"]
+
+  Infinity (무한값)    1/33333
+  NaN (숫자아님)
+
+  isFinite()
+  parseFloat();
+
+  isNan();
+  parseInt();
+  값.toString();
+
+  http : html 로 해석하기로 약속한 프로토콜(약속)
+  ftp  : file 을 주고 받도록 약속한 프로토콜
+  smtp : simple male transper protocol
+
+
+   BE 아저씨가
+   패스(경로/주소)는 http://localhost:3000/docs/search 이용
+   cate 라는 변수에는 카테고리를 보내주시고
+   lang 라는 변수에는 국가를 보내주시고
+   name 라는 변수에는 단어를 보내주세요.
+   그러면 결과를 리턴해 드릴께요.
+
+   http://localhost:3000/docs/search?cate=값&lang=값&name=값
+
+  http://localhost:3000/docs/search
+  ?cate=singer&lang=ko&name=%EC%95%84%EC%9D%B4%EC%9C%A0
+
+```
