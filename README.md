@@ -869,3 +869,460 @@ MS, Apple, Google, ... 개발자
   ?cate=singer&lang=ko&name=%EC%95%84%EC%9D%B4%EC%9C%A0
 
 ```
+
+# JS 22 장
+
+```txt
+22장 this ?     342 페이지
+
+ 1. 객체 는 상태( property, methode )를 가지고 있다.
+
+ 2. 객체 는 독특한 데이터 종류이다.
+
+ - 메소드는
+    자기가 코딩된 객체(실행이 되는 순간 인스턴스)의 property 를 변경할 수 있다.
+
+ - 속성을 변경려면 메소드는  자기가 속한 객체(this로 찾을 수 있다.)를 알수가 있어야 한다.
+
+ 3. this 는 함수 호출 방식에 따라서 그때 그때 결정이 된다.
+
+
+ 3.1. 일반 함수 호출
+
+    function Go() {
+      // this ?
+    }
+    Go(); // window
+
+ 3.2. 메소드 호출 방식
+
+    const obj = {
+      gogo(){
+         this?
+      }
+    }
+
+    obj.gogo(); // obj
+
+ 3.3. 생성자 함수 호출 방식
+
+    function  Go() {
+      // this?
+    }
+
+    const who = new Go();  // who
+
+ 3.4. 간접 적으로 접근해서 호출 (X)
+   Function.prototye.call();
+   Function.prototye.apply();
+   Function.prototye.bind();
+
+ 4. 주의 하자. ( setTimeOut / setInterval )
+  : setTimeout  (시간이 지나면 함수 호출 )
+  : setInterval (일정한 시간마다 지나면 함수 호출 )
+
+  var value = 1;
+
+  const obj = {
+      value: 100;
+      foo () {
+         console.log(this) //     obj
+         const gogo = this;
+
+         // setTimeout(기능, 시간)
+         setTimeout( function () {
+                        console.log(this) // 일반함수라서 window
+                        gogo.value;
+                     },  1000)
+      }
+  }
+
+ // 메소드로 호출했다.
+ // 지금까지의 얘기로는 this 는 obj 를 가르킨다고 알고 있었다. 그런데..
+  obj.foo();   // obj,  window
+
+ - this는 코딩된 위치를 기준으로 바인딩(연결) 한다.
+
+
+ 5. 결론
+
+ - 일반함수 호출은 this가 window 를 대상으로 한다.
+ - 객체를 가르키고 싶다면(참조한다면) 화살표 함수 쓰세요.
+```
+
+# JS 23 장
+
+```txt
+
+   23장 실행 컨텍스트
+
+  1. 실행 컨텍스트 알면 좋은점
+
+   1.1. 외운다기 보다는 여러분이 JS 를 실행하는 플레이어로 생각하면 좋겠습니다.
+    예) mp4 영상이 있다면 플레이어 소프트웨어가 어떻게 실행이 과정이 어떨까?
+
+   1.2. JS 가 변수(식별자: 구분자)와 변수(식별자: 구분자) 를 구분하고 어떻게 찾아서
+     사용하는가에 대한 이해를 돕는다.
+
+   1.3. 호이스팅의 과정을 알 수 있다. (var 또는 function 사용시)
+
+    1번줄   console.log(age) ? // 에러가 아니네??
+    2번줄   go()?   // 에러가 아니네?
+     ...........................
+    100번줄 var age = 15;
+    130번줄 function go(){}
+
+   1.4. Closer 에 대한 과정을 알 수 있다.
+
+     함수가 종료되었는데 어떻게 지역변수(즉, 함수 안에 만든 변수가 살아있지? )
+
+   1.5. Task 큐  +   이벤트 핸들러 의 작동방식의 이해
+  =================================================
+
+  2. JS play 를 할 수 있는 환경에 2개가 있습니다.
+  - Web Browser
+  - Node.js
+
+  2.1. 소스코드가 실행시 player 는 준비합니다.
+
+  2.2. 분류 (평가작업)
+    2.2.1. 전역 코드
+    2.2.2. 함수 코드
+    2.2.3. eval :  글자를 자바스크립트로 인정해서 실행한다. 절대로 신경쓰지 마세요.
+    2.2.4. 모듈 코드 :  export , import 등등 .js 파일내의 작성 되었구나.
+
+  2.3. 실행준비(player)
+
+   - 1 단계로 코드를 보고 평가를 한다.
+   - 2 단계로 실행한다.
+
+ 3. 렉시컬 환경은 어떻게 쌓여있는 스택들 간에  변수, 함수를 찾아서 쓰는가?
+
+  - Scope 가 결정되어 지면 체인(찾아가는 연결)이 관리한다.
+  - Global Scope : window
+  - Local Scope  :  {    }
+
+ 4. 비동기의 이해 (대표적으로 addEventListner/fetch/axios ... )
+
+  - bt.addEventListener("click", function(){ ... } )
+
+  - fetch(url).then( function() { } ).catch( function() { } )
+
+  10 번줄 fetch("path").then( res => console.log(res) )
+ ...........
+  20 번줄 say();
+```
+
+# Axios
+
+## 1. axios 를 연습할때
+
+- [josn-server](https://www.npmjs.com/package/json-server)
+- [참조자료](https://poiemaweb.com/json-server)
+
+## 2. 서버 구축 과정
+
+- D:드라이브에 server 폴더를 만든다.
+- VSCode 에서 프로젝트 등록을 한다.
+- Node.js 프로젝트로 등록을 한다. (리액트 상관없음)
+
+## 3. Node.js 프로젝트 생성하기
+
+- `npm init` 엔터
+
+## 4. json-server npm 설치
+
+- `npm install -g json-server`
+- db.json 파일 생성
+
+```json
+{
+  "posts": [
+    { "id": "1", "title": "a title", "views": 100 },
+    { "id": "2", "title": "another title", "views": 200 }
+  ],
+  "comments": [
+    { "id": "1", "text": "a comment about post 1", "postId": "1" },
+    { "id": "2", "text": "another comment about post 1", "postId": "1" }
+  ],
+  "profile": {
+    "name": "typicode"
+  },
+  "todos": [
+    {
+      "id": 1,
+      "content": "HTML",
+      "completed": true
+    },
+    {
+      "id": 2,
+      "content": "CSS",
+      "completed": false
+    },
+    {
+      "id": 3,
+      "content": "Javascript",
+      "completed": true
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "Lee",
+      "role": "developer"
+    },
+    {
+      "id": 2,
+      "name": "Kim",
+      "role": "designer"
+    }
+  ]
+}
+```
+
+## 5. json-server 실행
+
+- `json-server --watch db.json`
+- 리액트가 3000 포트를 사용하고 있음.
+- json-server 도 3000 포트를 사용하므로 충돌 발생함.
+- `json-server --watch db.json --port 5000`
+- json-server 포트를 5000 번으로 변경
+
+## 6. package.json 에 script 명령어 추가하기
+
+```json
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "json-server --watch db.json --port 5000"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "json-server": "^1.0.0-beta.0"
+  }
+}
+```
+
+## 7. API 테스트하기
+
+- CRUD 테스트 (크러드)
+  : Create (POST)
+  : Read (GET)
+  : Update (PUT / Fetch )
+  : Delete (DELETE)
+- Postman (웹 API 테스트시 일반적 사용)
+- Swagger (웹 API 테스트시 별도로 BE에서 셋팅)
+- Web Browser (웹 프로젝트 CORS 에러 발생 함)
+  : package.json 에 "proxy":"주소" 를 작성해야 한다.
+
+## 8. Axios 활용
+
+- [axios](https://axios-http.com/kr/docs/intro)
+- `npm install axios`
+
+## 8.1. axios 폴더 추천
+
+- /src/apis 폴더 생성
+- /src/apis/config.js
+
+```js
+// 서버 주소
+export const SERVER_URL = "http://localhost:5000";
+```
+
+- /src/apis/todos.js
+
+# JS 24장 클로저
+
+```txt
+
+24장 클로저
+ 1. 실행 컨텍스트
+
+    1.1. 코딩을 했다.
+
+        - JS 플레이어(Web Browser) 에서는 2단계 진행
+
+        - 1단계 : 소스 코드 분석 단계 (전역/함수/모듈)
+                : 변수 목록/함수 목록 을 관리
+
+        - 2단계 : 코드 실행 단계 ( 렉시컬은 변수 찾기 범위 설정 )
+                : 변수 / 함수들의 대한 참조를 결정지어 버린다.
+                : 참조한 내용들의 정보를 절대로 바꾸지 않는다.
+
+  2. 클로저
+
+  2.1. 함수와 그 함수가 선언된(코딩된) 렉시컬 환경과의 조합이다.
+
+  - JS 는 함수를 호출 즉 Call 이 아니고, 작성을 하는 순간 모든 참조가 결정된다. (렉시컬 범위가 셋팅 완료)
+
+  2.2. 외부 렉시컬 환경에 대한 참조도 저장해 둔다.
+
+ 3. 함수 객체
+
+  3.1. 함수 도 객체라서 속성이 있다.
+
+       - [[Environment]]
+          : 환경 슬롯 이 이미 코딩된다.
+          : 여기에는 렉시컬 환경 참조, 즉 상위 스코프를 기억한다.
+
+
+ 4. 클로저의 조건
+
+   4.1. 함수 안에  함수를 만든다.
+
+      function Outer() {
+
+            function gogo() {
+            }
+      }
+
+   4.2. 함수 안에  함수를 만든 후 내부에 만든 함수를 리턴한다.
+
+      function Outer() {
+
+            function gogo() {
+            }
+
+            return gogo;
+      }
+
+   4.3. React 예
+
+       const Header = function() {
+
+          const hanldleClck = function(){
+          }
+
+          return ( <div> </> );
+
+       }
+
+   4.4. 외부 함수 보다 중첩 함수가 더 오래 유지되는 경우
+        중첩 함수는 이미 종료되어 버린 외부 함수의 변수를
+        참조할 수 있다.
+
+        function Out() {
+
+          let age = 10;
+
+          function In() {
+
+               console.log(age)
+
+          }
+
+          return In;
+
+        }
+
+        const gogo = Out();
+
+
+  5. 클로저 활용
+
+   5.1. 함부로 접근해서 변수의 상태를 바꾸지 못하게 할 수 없을까?
+
+     : 함수의 지역변수로 만들기 (은닉한다.)
+
+     const 가져가 = function(){
+
+        let 돈 = 100;
+        return 돈 --;
+     }
+
+     console.log(돈) // 에러
+
+     돈 이라는 변수에 접근할 수 없다.
+
+   5.2. 외부에서 함수에 만든 지역 변수를 접근할 수 없을까?
+
+    const 가져가 = function(){
+
+        let 돈 = 100;
+        return 돈 --;
+     }
+
+      가져가(); // 99
+      가져가(); // 99
+      가져가(); // 99
+
+      const 가져가 = function(){
+
+        let 돈 = 100;
+
+        function 돈빼기() {
+           return 돈--
+        }
+
+        return 돈빼기;
+     }
+
+     const 결과 = 가져가();
+     결과();
+     결과();
+     결과();
+     결과();
+
+
+
+  6. 클로저란?
+  6.1. 함수에서 내부 함수를 리턴한다.
+  6.2. 내부 함수는 외부의 변수를 사용한다.
+  6.3. 이렇게 하면 데이터를 외부에서 접근할 수 없으므로 데이터를 은닉할 수 있다.
+  6.4. 데이터에 접근하는 내부 함수를 통해서만 접근할 수 있으므로 안전한다.
+
+
+  function 회원정보() {
+
+    let 사용자레벨 = 1;  회원
+    return function() {
+      return 사용자레벨++;
+    }
+  }
+
+  const 회원업데이트 = 회원정보();
+  회원업데이트();
+  회원업데이트();
+  회원업데이트();
+  회원업데이트();
+
+  7. 고차함수
+
+  7.1. 면접볼떄 자주 나오는 내용
+  7.2. 함수에 함수를 매개변수로 전달한다.
+
+  배열.map(고차함수);
+  배열.map( function(item, index, arr){     } )
+
+
+  8. 클로저
+
+  8.1. 목적은 데이터를 안전하게 보관한다. 즉, 외부에서 함부로 접근못하게 한다.
+  8.2. 데이터를 변경해야 할 경우 내부 함수로 변경한다.
+
+  function 은행() {
+
+     let 잔고 = 0;
+
+     return {
+
+        입금(_money) {
+           return this.잔고 + _money
+        }
+
+        출금(_money) {
+           return this.잔고 - _money
+        }
+     }
+
+  }
+
+  const 홍길동 = new 은행();
+  홍길동.입금(100)
+  홍길동.출금(50)
+```
