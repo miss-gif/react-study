@@ -1,1018 +1,3 @@
-# 리액트 컴포넌트
-
-## 1.0. 컴포넌트를 왜 생성하는가?
-
-- 프로젝트 규모에 따라 협업이 필요로 함.
-- 기능별로 html, css, js 가 별도로 관리 필요.
-
-## 1.1. 컴포넌트에 배치되는 내용
-
-- JSX 가 배치된다. (리액트용 HTML 태그 class => className)
-- css 가 배치된다. ( background: url(경로문제) )
-- js 를 배치된다.
-
-## 1.2. 이미지를 배치하는 2가지 경우(주의사항)
-
-- 태그에 이미지를 배치한 경우
-  : public/images 폴더를 참조합니다.
-
-```html
-<img src="./images/etc/logo-kakao.png" />
-```
-
-- css 배경으로 이미지를 배치한 경우
-  : src/images 폴더를 참조합니다.
-  : css 파일을 js 컴포넌트에서 사용하면 webpack 이 압축한다.
-
-```css
-background: url("../images/icon/icon-search.png");
-```
-
-## 1.3. js를 React 로 마이그레이션 진행
-
-### 1.3.1. load 가 useEffect 로 변경
-
-```js
-window.addEventListener("load", function () {});
-
-useEffect(() => {
-  return () => {};
-}, []);
-```
-
-### 1.3.2. querySelector 가 useRef(null) 로 변경
-
-```js
-const tag = document.querySelector(".bt");
-
-const tag = useRef(null);
-
-useEffect(() => {
-  // tag.current 로 접근
-  return () => {};
-}, []);
-
-<div ref={tag}> </div>;
-```
-
-# JS 14 장
-
-```txt
-// var : 값을 담을 공간을 마련해줘.....
-  // var 이름 : 값을 담은 공간에 꼬리표를 붙여줘.
-  var age = 15;
-  var nickName = "hong";
-  function go(){
-  }
-  console.log(age)
-  console.log(window.age)
-
-  모듈(기능별 파일코드)은 import/export 문법을 써서 변수 범위를 설정한다.
-
- class 장을 보아야 해요.
-
-  외부에서 변수 및 함수에 접근할 수 있는 권한
-  public    : 외부 어떤 곳에서도 사용할 수 있다.
-  private   : 외부에서 절대로 사용할 수 없다.
-  protected : 허용한 대상만 사용할 수 있다.
-```
-
-# JS 15장
-
-```txt
- var 는 없다 생각해요.
- 변수 를 만들때 고민이 생겨요.
-
- const 변수이름  :  값을 고정시키겠다.
- let 변수이름    : 값이 수시로 바뀌어집니다.
-
-const 사용하실 때 오해의 소지가 있는 경우
-
- 정군은 const 는 절대로 값이 안변한다.
- 값을 변경하려고 하면 에러난다.
- const age = 15;
- age = 100; // 에러.. conatant value...
-
-
- const 객체 = {}   오해의 소지가 발생합니다.
-
- const 정군 = {} // 이미 주소는 고정이 되어 버렸다.
- 정군 = "안녕"   //  주소를 교체 하려고 했다. 그래서 const 에 위배된다. 에러
-
- // 주소를 교체하는 것이 아니고, 안쪽의 연결된 내용을 수정한다.
-
- 정군.age = 100;
- 정군["nicName"] = "hong guil dong";
-```
-
-# 실 업무에서 알아야 하는 상식
-
-- nvm (Node Version Manger) 설치 및 활용
-  : https://github.com/coreybutler/nvm-windows/releases
-  : 설치 버전 확인 `nvm -v`
-  : 설치 가능한 버전 목록 `nvm list available`
-  : 설치 하기 `nvm install 버전`
-  : 현재 사용중인 Node 버전 확인하기 `node -v`
-  : 현재 설치된 Node 목록 확인 `nvm ls`
-  : 사용할 Node 버전 선택하기 `nvm use 버전`
-  : Node 설치된 경로 알아보괴 `which node`
-
-- npm 보다는 yarn 선호
-  : Node Package Manager (node_modules)
-  : package.json 의 dependencies 목록을 참조
-  : npm 이 가끔 다운로드 중 오류가 발생하고, 소스가 깨짐 현상
-  : 예) 네이버 Toast UI 등.
-  : npm 보다 안정적인 package 관리를 위해서 yarn 을 활용.
-  : `npm install -g yarn`
-  : `yarn --version`
-
-- favicon 만들기(디자이너 담당)
-  : https://realfavicongenerator.net/
-
-- ::before, ::after 샘플
-  : css 로 내용만들기
-
-```html
-<body>
-  <style>
-    .wrap {
-      position: relative;
-      width: 100%;
-      height: 400px;
-      background: goldenrod;
-      margin: 100px auto;
-      padding: 50px;
-    }
-    .box {
-      width: 100px;
-      height: 100px;
-      margin: 100px auto;
-      background: hotpink;
-      text-align: center;
-    }
-    .box span::before {
-      display: inline-block;
-      content: "";
-      width: 10px;
-      height: 10px;
-      background-color: red;
-    }
-    .box span::after {
-      display: inline-block;
-      content: "";
-      width: 10px;
-      height: 10px;
-      background-color: blue;
-    }
-  </style>
-  <div class="wrap">
-    <div class="box">
-      <span>안녕</span>
-    </div>
-  </div>
-</body>
-```
-
-# JS 16 장
-
-```txt
- 16장. Property Attribute ( get, set, 불변객체(freeze))
-
- [[단어]]
-
- const Obj = {}
- Obj.[[Prototype]] 이렇게 정의는 되어도
-                  우리는 사용할 수 없어요.
- Obj.__proto__   이렇게 접근이 가능하도록 개방됨.
-
-
- const Person = {
-   age: 10
- }
- Pesong.nickName = "홍길동";
-
- console.log(Person.age); // 개발자가 활용
- console.log(Person.nickName); // 개발자가 활용
-
- Person.age //  [[value]] ===> true,
-
- Person.job = "학생";
- Person.age //  [[writable]] ===> true,
-
- // 반복을 통해서 요소들을 출력할 수있다.
- Person.age //  [[enumarable]] ===> true,
-
- Person.age = 10000
- Person.age //  [[configurable]] ===> true,
-
-
- const [age, setAge] = useState(0)
-
-
- const who = {} // const 적용시 불안정하다.
- who = "안녕" // 변경 불가
-
- who.age = 100; // 막을 방법이 없다.
-
- 객체 변경     금지... (완벽하게 막을 수 없어서)
- : 객체를 복사해서 사용
- : lodash 라이브러리 활용 (https://lodash.com/docs/#cloneDeep)
-
-
- 객체 만드는 법
- : 객체 리터럴     {}
- : 함수로 객체만드는 법 (4가지)
-```
-
-# React useState 정리
-
-```txt
-
- 모든 hook 들은 컴포넌트 js 의 첫번째 영역에 배치를 하자!
-
- hook ?
-
- 일반 변수는 값이 바뀌어도 재렌더링 없음
- 리액트 변수는 값이 바뀌면 재 렌더링 되므로 화면 반영
-
-
-  1. 리액트용 변수 즉, useState 는 재 렌더링시 표현된다.
-
-  2. 리액트용 변수 즉, useState 는 컴포넌트에서만 작성할 수 있습니다.
-
-  3. useState 는 비동기이므로 즉시 참조할 수 가 없다.
-
-  4. useState 에 직접 값을 변경할 수 없다.
-     const [age, setAge] = useState(0);
-     age = 100; (X)
-
-  5. useState 에서 현재값을 참조하고
-     즉시 갱신을 하려면 함수를 활용하여 업데이트 한다.
-
-     const [age, setAge] = useState(0);
-     setAge(age++); // 1 이 되지 않는다. 즉, 즉시 갱신 되지 않는다.
-     console.log(age);
-     // 우리는 1증가한 값을 기대하였다. 하지만 값은 옛날거 유지
-     // 함수가 종료되면 그때 업데이트 된다.
-
-
-       const [isOpen, setIsOpen] = useState(false);
-
-       const clickMbbt = () => {
-
-         const now = !isOpen;
-         setIsOpen(now);
-
-         //     즉시 갱신을 하려면 함수를 활용하여 업데이트 한다.
-
-         // setIsOpen((prev) => {
-         //   return !prev;
-         // });
-
-       };
-
-
-   6. useState 에서 기존 값 참조 후
-      직접 값 갱신 리턴 받아서 바로 사용하고 싶다.
-
-     const [age, setAge] = useState(0);
-     setAge(age++) ; // 기존 방식 (새로운 값 안나옴)
-
-     setAge( 이전값 => { return 새로운값 }  ) // 함수 방식(새로운 값 나옴)
-     setAge( prev => { return prev+1 }  ) // 함수 방식(새로운 값 나옴)
-```
-
-# JS 17 장
-
-```txt
- 1. 객체 가 뭘까?
-
-   : 객체를 만든다는 말은 데이터를 설계하는 것.
-   : 예) 유아제품을 판매하는 서비스에서 제품을 표현한다면?
-
-   : 여러 개의 데이터와 여러 개의 기능을 묶어서
-     마치 데이터종류처럼 사용할 수 있다는 장점
-
-   하나의 이름으로  {
-      데이터... 가지고 있고,
-      데이터... 가지고 있고,
-      데이터... 가지고 있고,
-      기능...   가지고 있고,
-      기능...   가지고 있고,
-    }
-
-
-    const Person = {
-       age: 10,
-       nickName: "홍길동"
-    }
-
-    Person 의 데이터 타입(종류)
-    -  객체:Person ====> { age:number, nickName:string}
-
-2. 객체 는 정말 좋은데 (다양한 자료를 묶어서 이름 한개로 표현 가능)
-   만드는 방법이 2가지 형태(리터럴, 함수)를 띈다.
-
-   2.1. 객체 리터럴 (장점: 가독성, 관리 손이 고생,  단점: CRUD)
-        const Obj = { name: "귀마개", count:10}
-        const Good_1 = { name: "귀마개", count:10, descript:"df"}
-        const Good_2 = { name: "귀마개", count:10, descript:"df"}
-        const Good_3 = { name: "귀마개", count:10, descript:"df"}
-        const Good_4 = { name: "귀마개", count:10, descript:"df"}
-        const Good_5 = { name: "귀마개", count:10, descript:"df"}
-        const Good_6 = { name: "귀마개", count:10, descript:"df"}
-        const Good_7 = { name: "귀마개", count:10, descript:"df"}
-        const Good_8 = { name: "귀마개", count:10, descript:"df"}
-        const Good_9 = { name: "귀마개", count:10, descript:"df"}
-        const Good_10 = { name: "귀마개", count:10, descript:"df"}
-
-   2.2. 객체 생성자(constructor) 함수 (Object) 사용
-
-
-     Object() : ? 함수 call 하는 구나.
-
-     new Object()
-      : new 함수 call 하는 구나.
-      : new는 문법 Object() 객체 생성
-
-     2.2.1. 관례
-      : 개발자가 함수의 모양만 봐도 객체생성함수/ 일반함수 인지 구별이 가능하다.
-
-       Swiper()
-       Axios()
-
-      : 일반적으로 call 하는게 아니다를 표현한다면
-        new Swiper()
-        new Axios()
-
-    2.2.2.  함수 안쪽에 this 는 죄송하게도 call 방식에 따라서 this 의 값은 다르다.
-
-      function Foo() {
-         //this
-         goto: function () {
-                this
-                }
-      }
-
-      Foo(); // this 는 window
-
-      new Foo(); // this 는 만들어질 객체 (인스턴스 : 앞으로 보관될 것)
-
-      const go = new Food()
-      go.goto(); // 여기서 this는     . 앞에 것 즉, go 를 가르킵니다.
-
-  2.2.3. 제발 용도를 구분하셔서 함수 call 과   new 객체생성자함수 를 구분하셔서
-         리턴을 하셔야 해요.
-
-      :  일반 함수는 자유롭게 return  값;
-      :  객체생성용 함수는 제발 return 적지 마세요.
-
-  2.2.4 constructor 함수 / none-constructor 함수
-
-      : 모든 함수 형태는 어디에 작성을 하든 new 사용가능 (constructor)
-
-      : 근데, ES6 도입 후 new 사용못하는 함수
-        (화살표함수, 축약메소드 함수 none-constructor)
-
-  2.2.5.  new로 생성된 객체(인스턴스)의 원본확인 연산자 instanceof
-
-
-
-   2.3. 클래스 함수 사용 (25장에서 등장)
-```
-
-# 리액트 useState 정리
-
-```txt
-
-  1. 매개변수이름 은 관례상 props 라고 작성합니다.
-
-   const MbHeader = (props) => {
-      return ( .....)
-   }
-
-   <Header clickMbbt={clickMbbt} age={10} ></Header>
-
-   참조법 1.
-   const MbHeader = (props) => {
-
-      // 참조가능 : 함수이구나
-      props.clickMbbt()
-
-      // 참조가능 : 숫자구나
-      props.age;
-
-      return ( .....)
-   }
-
-   참조법 2.
-   const MbHeader = (props) => {
-
-      // 참조가능 : 함수이구나
-      const clickMbbt = props.clickMbbt;
-      clickMbbt();
-
-      // 참조가능 : 숫자구나
-      const age = props.age;
-      age;
-
-      return ( .....)
-   }
-
-   참조법 3.
-   const MbHeader = ({clickMbbt, age}) => {
-
-      // 참조가능 : 함수이구나
-      clickMbbt();
-      // 참조가능 : 숫자구나
-      age;
-
-      return ( .....)
-   }
-
-  2. 리액트 용 변수 즉, useState 이해
-
-  :  컴포넌트에 새로고침을 진행하도록 한다. ( useEffect 를 강제 실행 )
-
-  :  useEffect 용도?
-     - 컴포넌트가 생성될 때 실행하고 싶은 것
-
-       useEfeect( () => {
-
-          // 죽어도 한번만 실행하라!
-
-       }, []);   // [] 에 아무것도 작성하지 않는다면.
-
-
-     - 컴포넌트가 제거될 때 실행하고 싶은 것
-
-       useEfeect( () => {
-
-         return () => {
-             // 죽을 때 한번만 실행한다.
-         }
-
-       }, []);
-
-     - 컴포넌트가 업데이트될 때 실행하고 싶은 것
-
-       useEfeect( () => {
-
-       }, [ 리액트변수 ]); // 작성을 해주면 해당 상태가 내용이 바뀌면 화면 고침
-
-  : 리액트 변수 만들기
-
-    const [get이름, set이름] = useState(초기값);
-    const [mbMenuOpen, setMbMenuOpen] = useState(false);
-
-  : 리액트 변수 값 고치기
-
-   - 이러시면 안되요.
-
-     get이름 = 값을 직접 입력은 반영안됨.
-     mbMenuOpen = true;  // 이러시면 반영안되요.
-
-   - 함수가 종료되어야 업데이트 된 결과를 참조할 수가 있다.
-
-   - 방식은 2가지
-     set이름(새로운 값);
-
-     set이름( (현재값) => {
-                      return 새로운값;
-                      }
-            );
-
-    - 예제 1)
-    const clickMbbt = () => {
-      setMbMenuOpen(새로운값);
-    };
-
-    - 예제 2)
-    const clickMbbt = () => {
-      setMbMenuOpen( (기존값) => { return 새로운값 } );
-    };
-
-    - 활용 예)
-   const clickMbbt = () => {
-
-    setMbMenuOpen((prev) => {
-      return !prev;
-    });
-
-   };
-```
-
-# JS 18장
-
-```txt
- 1. 제가 생각하기에 면접에서 맘에 안들경우 나올 만한 질문
- - 일급객체
-   : 익명 리터럴로 생성이 가능해야 인정
-   : 저장가능하니? 데이터 자료로
-     const go  = function () {}
-     const obj = {}
-
-   : 함수(매개변수) 및 리턴 가능?
-      function say( _val ){}
-      say(go)
-      say(obj)
-
-      useEffect( () => {
-          return () => {}
-      }, [])
-
-
- 2. 유사 배열 객체 / 이터러블 (순회, 즉, 반복이 가능한.)
-  : Rest 파라메터 function (...args) {}
-
-  const arr = [5, 8, 77, 9, 7];
-
-  arr.reduce ( 함수 , 초기값 )
-
-  arr.reduce ( function (    )   {  } ,     0 )
-
-  arr.reduce ( function(이전요소, 다음요소) {  } ,     0 )
-
-  arr.reduce ( function(이전요소, 다음요소) {
-                         return 변경값 ;
-               } , 0 );
-
-
-const array1 = [1, 2, 3, 4];
-
-// 0 + 1 + 2 + 3 + 4
-const initialValue = 0;
-
-const sumWithInitial = array1.reduce( (accumulator, currentValue) => {
-                                             return accumulator + currentValue
-                                        },
-                                        initialValue,
-                                     );
-
-console.log(sumWithInitial);
-// Expected output: 10
-
-
-4. _ _ proto _ _ 는 객체의 prototype 요소에 접근할때 작성
-
-5. Prototype 은
-  - 상속 (extension) 구현하기 위해 활용
-  - 객체 생성자 함수로 호출할 수 있는 함수객체 만이
-    가지고 있는 속성이다.
-  - 객체 생성자 함수를 호출하면 인스턴스 변수를 만들어요.
-    const slide = new Swiper();
-    slide 에는 prototype 이라는 객체를 만들어 준다.
-
-```
-
-# JS 19장
-
-```txt
-프로토타입
-
-: 문법을 알아야 하는 이유는 유명한 소스를 분석해야 할 때가 옵니다.
-
-1. _ _ proto _ _
-
-: JS 에서 객체의 기본 속성을 알고 싶다.
-: _ _ proto _ _ 로 접근한다. (하지만 사용하지 마세요.)
-
-2. prototype
-
-: JS 에서 직접 기본 속성을 만들고 싶다!!!!
-: 만든다는 의미는 함수를 말합니다.
-: 여기서 함수는 객체를 생성하는 객체 생성자 함수를 말합니다.
-: 나는 객체의 기본 속성을 만들고 싶다. 라면
-- prototype.속성명 = 값;
-
-3. class
-: 객체를 생성하는 문법 중 하나
-: ES6에서 도입
-
-4. 객체 지향 프로그래밍
- : OOP(Oriented Object Programming)
- : 실세계에 존재하는 대상에 대해서 특징과 성질, 행동을
-   코드로 표현하겠다.
- : pg 에서 활용할 특징, 행동만 별도로 뽑아서 설계를 추상화한다.
- : 특징 또는 성질을 Properties, Attribute
- : 행동을 Behavior, Method
- : 객체는 Property, Method 를 가진 데이터
-
- const Circle = {
-    radius: 3, // 속성명: 속성값   상태
-
-    getArea : function() {},    // method: method 기능
-
-    getArea() => {}    // method: method 기능
- }
-
-5. 상속
-: 하나의 객체의 속성, 메소드를 다른 객체가 사용할 수 있도록 허용한다.
-: 그래서 똑 같은 기능을 다시 만들지 않아도 된다.
-: 그래서 똑 같은 속성을 다시 만들지 않아도 된다.
-
-: 아래  예제는 new 실행시 불필요하게 say 메서드가 만들어진다.
-
- function 말해봐(단어) {
-     this.word = 단어;
-     this.say = function(){
-         console.log(this.word)
-     }
- }
-
- const 홍길동 = new 말해봐("밥은 먹고 다니니?")
- const 둘리 = new 말해봐("뾰로롱")
-
-: 아래  예제는 new 실행시 불필요하게 say 메서드가 만들어진다.
-
- function 말해봐(단어) {
-     this.word = 단어;
- }
-
- 말해봐.prototype.say = function(){
-     console.log(this.word)
- }
-
- const 홍길동 = new 말해봐("밥은 먹고 다니니?")
- const 둘리 = new 말해봐("뾰로롱")
-
- 홍길동.say();
- 둘리.say();
-
- 6. _ _ proto _ _
-  : JS 의 모든 객체가 가진 기본값
-
- 7. prototype
-  : 오로지 함수 객체에서만 존재하는 것.
-  : 그래서 우리는 new 를 통해서 생성하므로
-  : 적극적으로 활용을 해서 진행한다.
-
- 8. 오버라이딩
-  : protoype 기능 덮어쓰기
-  : 똑같은 이름으로 정의한다.
-
- function 말해봐(단어) {
-     this.word = 단어;
- }
-
- 말해봐.prototype.say = function(){
-     console.log(this.word)
- }
-
- const 홍길동 = new 말해봐("밥은 먹고 다니니?");
- // 인스턴스 변수에서 덮어쓰기
- 홍길동.say = function(){
-    console.log("하하하하하하하")
- }
- 홍길동.say();
-
- 9. instanceof
-
- : 여기서 instance 란?
-
-  - new 로 만들어진 변수
-
- : instance     of     어떤객체
-
- : 인스턴스변수  instanceof 객체생성자함수
-
- : 예)
-
-   정화섭 instanceof 사람 ====> true
-   정화섭 instanceof Animal ====> true
-
-   정화섭 instanceof Dog ====> false
-
-10. 정적인 property / method
-
-: 정적이라는 말은 객체생성자 함수에 고정시킨 속성과 메소드
-: 정적 ( static 이라는 단어)
-
-: 예)
-
-function Dog(name) {
-   this.name = name;
-}
-Dog.prototype.cry = function(){ console.log("왈왈왈") }
-
-// 정적인 속성(property)
-Dog.eye = 2;
-
-new 댕댕이 = new Dog("돌돌이");
-댕댕이.cry();
-댕댕이.eye; // 없다
-Dog.eye; // 정적인 static 속성
-
-댕댕이 instanceof Dog;   // true
-
-Math.PI;
-Math.round();
-
-10. in 연산자
-
-: 프로퍼티(키명) 있니?
-
-11. for ... in 문
-
-: for (변수명 in 객체) { ...}
-
-: 배열인 경우만 조심해서 사용하자.
-- 배열도 객체이니까.
-- 배열인 경우는 for...in 말고  forEach 를 쓰자
-
-12. for ... of 문
-:  앞으로 자주 쓰자. 가능하면 반복문에서
-```
-
-# 리액트 프로젝트 셋팅
-
-- 모든 프로젝트에서 공통 적용
-
-## 1. 단계
-
-### 1.1. 소문자 프로젝트 폴더 생성
-
-`npx create-react-app ./ --template typescript`
-
-### 1.2. GitHub 생성
-
-### 1.3. 프로젝트 폴더와 깃허브 연결
-
-### 1.4. 개발환경 셋팅
-
-- eslint 설정
-  : js 문법을 안내해 줌.
-  : 오류에 대해서 설명해 줌.
-  : 미리 문제발생할 소지가 있는 부분을 안내해 줌.
-  : 즉 코딩에 도움을 주는 도구.
-  : 프로젝트에서 전체 셋팅을 하는 것이 관례.
-  : 아래의 순서를 준수하자.
-  : `npm install eslint-plugin-react@latest --save-dev`
-  : `npm install eslint@8 --save-dev`
-  : `npx eslint --init`
-
-- prettier 설정
-  : 문서포맷 정리
-  : 들여쓰기, 따옴표, 세미콜론 등등등.
-  : `npm install --save-dev --exact prettier`
-  : 환경 설정 파일을 / 에 만든다
-  : 파일명은 약속이 되어 있다.
-  : `.prettierrc.json`
-
-  ```json
-  {
-    "singleQuote": false,
-    "semi": true,
-    "useTabs": false,
-    "tabWidth": 2,
-    "trailingComma": "all",
-    "printWidth": 80,
-    "arrowParens": "avoid",
-    "endOfLine": "auto"
-  }
-  ```
-
-- eslint & prettier 설정
-  : eslint 에서 prettier 의 설정 안내해 주도록 연결
-  `npm install eslint-config-prettier --save-dev`
-
-- .eslintrc.js 수정으로 마무리
-
-```js
-module.exports = {
-  env: {
-    browser: true,
-    es2021: true,
-  },
-  extends: ["eslint:recommended", "plugin:react/recommended", "prettier"],
-  overrides: [
-    {
-      env: {
-        node: true,
-      },
-      files: [".eslintrc.{js,cjs}"],
-      parserOptions: {
-        sourceType: "script",
-      },
-    },
-  ],
-  parserOptions: {
-    ecmaVersion: "latest",
-    sourceType: "module",
-  },
-  plugins: ["react"],
-  rules: {},
-};
-```
-
-### 1.5. 관련 라이브러리 설치
-
-- axios
-- react router dom
-- emotion
-
-### 1.6. 기본 퍼블리싱
-
-- public/www 폴더 안에 작업 진행
-
-### 1.7. 기본 리액트작업
-
-# JS 21장
-
-```txt
-빌트인  ( 미리 작성되어 있는 JS )
-JS 라면 가지고 있어야 하는 내용을
-MS, Apple, Google, ... 개발자
-
-- 웹브라우저
-- Node.js
-
-
-  const go = "안녕"; // 기본(원시)
-
-  . 찍고 접근하면 속성에 접근
-  ? go 는 객체도 아닌데 어떻게?
-
-  go.length
-  go["length"]
-
-  const go = new String("안녕")
-
-  go.length
-  go["length"]
-
-  Infinity (무한값)    1/33333
-  NaN (숫자아님)
-
-  isFinite()
-  parseFloat();
-
-  isNan();
-  parseInt();
-  값.toString();
-
-  http : html 로 해석하기로 약속한 프로토콜(약속)
-  ftp  : file 을 주고 받도록 약속한 프로토콜
-  smtp : simple male transper protocol
-
-
-   BE 아저씨가
-   패스(경로/주소)는 http://localhost:3000/docs/search 이용
-   cate 라는 변수에는 카테고리를 보내주시고
-   lang 라는 변수에는 국가를 보내주시고
-   name 라는 변수에는 단어를 보내주세요.
-   그러면 결과를 리턴해 드릴께요.
-
-   http://localhost:3000/docs/search?cate=값&lang=값&name=값
-
-  http://localhost:3000/docs/search
-  ?cate=singer&lang=ko&name=%EC%95%84%EC%9D%B4%EC%9C%A0
-
-```
-
-# JS 22 장
-
-```txt
-22장 this ?     342 페이지
-
- 1. 객체 는 상태( property, methode )를 가지고 있다.
-
- 2. 객체 는 독특한 데이터 종류이다.
-
- - 메소드는
-    자기가 코딩된 객체(실행이 되는 순간 인스턴스)의 property 를 변경할 수 있다.
-
- - 속성을 변경려면 메소드는  자기가 속한 객체(this로 찾을 수 있다.)를 알수가 있어야 한다.
-
- 3. this 는 함수 호출 방식에 따라서 그때 그때 결정이 된다.
-
-
- 3.1. 일반 함수 호출
-
-    function Go() {
-      // this ?
-    }
-    Go(); // window
-
- 3.2. 메소드 호출 방식
-
-    const obj = {
-      gogo(){
-         this?
-      }
-    }
-
-    obj.gogo(); // obj
-
- 3.3. 생성자 함수 호출 방식
-
-    function  Go() {
-      // this?
-    }
-
-    const who = new Go();  // who
-
- 3.4. 간접 적으로 접근해서 호출 (X)
-   Function.prototye.call();
-   Function.prototye.apply();
-   Function.prototye.bind();
-
- 4. 주의 하자. ( setTimeOut / setInterval )
-  : setTimeout  (시간이 지나면 함수 호출 )
-  : setInterval (일정한 시간마다 지나면 함수 호출 )
-
-  var value = 1;
-
-  const obj = {
-      value: 100;
-      foo () {
-         console.log(this) //     obj
-         const gogo = this;
-
-         // setTimeout(기능, 시간)
-         setTimeout( function () {
-                        console.log(this) // 일반함수라서 window
-                        gogo.value;
-                     },  1000)
-      }
-  }
-
- // 메소드로 호출했다.
- // 지금까지의 얘기로는 this 는 obj 를 가르킨다고 알고 있었다. 그런데..
-  obj.foo();   // obj,  window
-
- - this는 코딩된 위치를 기준으로 바인딩(연결) 한다.
-
-
- 5. 결론
-
- - 일반함수 호출은 this가 window 를 대상으로 한다.
- - 객체를 가르키고 싶다면(참조한다면) 화살표 함수 쓰세요.
-```
-
-# JS 23 장
-
-```txt
-
-   23장 실행 컨텍스트
-
-  1. 실행 컨텍스트 알면 좋은점
-
-   1.1. 외운다기 보다는 여러분이 JS 를 실행하는 플레이어로 생각하면 좋겠습니다.
-    예) mp4 영상이 있다면 플레이어 소프트웨어가 어떻게 실행이 과정이 어떨까?
-
-   1.2. JS 가 변수(식별자: 구분자)와 변수(식별자: 구분자) 를 구분하고 어떻게 찾아서
-     사용하는가에 대한 이해를 돕는다.
-
-   1.3. 호이스팅의 과정을 알 수 있다. (var 또는 function 사용시)
-
-    1번줄   console.log(age) ? // 에러가 아니네??
-    2번줄   go()?   // 에러가 아니네?
-     ...........................
-    100번줄 var age = 15;
-    130번줄 function go(){}
-
-   1.4. Closer 에 대한 과정을 알 수 있다.
-
-     함수가 종료되었는데 어떻게 지역변수(즉, 함수 안에 만든 변수가 살아있지? )
-
-   1.5. Task 큐  +   이벤트 핸들러 의 작동방식의 이해
-  =================================================
-
-  2. JS play 를 할 수 있는 환경에 2개가 있습니다.
-  - Web Browser
-  - Node.js
-
-  2.1. 소스코드가 실행시 player 는 준비합니다.
-
-  2.2. 분류 (평가작업)
-    2.2.1. 전역 코드
-    2.2.2. 함수 코드
-    2.2.3. eval :  글자를 자바스크립트로 인정해서 실행한다. 절대로 신경쓰지 마세요.
-    2.2.4. 모듈 코드 :  export , import 등등 .js 파일내의 작성 되었구나.
-
-  2.3. 실행준비(player)
-
-   - 1 단계로 코드를 보고 평가를 한다.
-   - 2 단계로 실행한다.
-
- 3. 렉시컬 환경은 어떻게 쌓여있는 스택들 간에  변수, 함수를 찾아서 쓰는가?
-
-  - Scope 가 결정되어 지면 체인(찾아가는 연결)이 관리한다.
-  - Global Scope : window
-  - Local Scope  :  {    }
-
- 4. 비동기의 이해 (대표적으로 addEventListner/fetch/axios ... )
-
-  - bt.addEventListener("click", function(){ ... } )
-
-  - fetch(url).then( function() { } ).catch( function() { } )
-
-  10 번줄 fetch("path").then( res => console.log(res) )
- ...........
-  20 번줄 say();
-```
-
 # Axios
 
 ## 1. axios 를 연습할때
@@ -1136,193 +121,389 @@ export const SERVER_URL = "http://localhost:5000";
 
 - /src/apis/todos.js
 
-# JS 24장 클로저
+# 리액트 이벤트 핸들러
+
+## 1. 기본
+
+- click, change
+
+### 1.1. JS 태그버전
+
+- 먼저 내용을 정리하고 아래 내용을 참조합니다.
+  : 반드시 소문자 on 에 소문자 이벤트
+  : <태그 on이벤트명="함수명()">내용</태그>
+  : 소문자 onclick="함수명()"
+  : 소문자 onchange="함수명()"
+  : 저는 안좋아합니다. 이유는 태그가 복잡해짐.
+
+- 태그에 직접 이벤트 연결하기
+  : 반드시 소문자로 on + 이벤트 로 작성한다.
+  : 예) onclick
+
+  ```html
+  <button onclick="alert('안녕')">클릭</button>
+  ```
+
+  : 태그에 JS 를 실행하는 경우 호출(call)을 꼭 해주자.
+
+  ```html
+  <script>
+    function 함수() {
+      alert("안녕");
+    }
+  </script>
+  : 아래의 예는 실행 안됨.
+  <button onclick="함수">클릭</button>
+
+  : 아래의 예는 실행됨.
+  <button onclick="함수()">클릭</button>
+  ```
+
+## 2. JS 태그 메소드 버전
+
+- 먼저 내용을 정리하고 참조하자.
+  : 태그를 먼저 찾고 이벤트를 연결한다.
+  : 태그.소문자 on이벤트명 연결한다.
+  : on이벤트명 함수 연결시 실행(Call)하면 안되는 주의사항
+  : 여러개의 함수를 등록할 수 없다. (사용안하게 된 계기)
+
+  ```js
+  const btClass = document.querySelector(".bt");
+  const btId = document.querySelector("#bt");
+  const btTag = document.querySelector("ul li a");
+  btClass.onclick = 함수명;
+  btId.onclick = 함수명;
+  btTag.onclick = 함수명;
+  ```
+
+: 객체.메소드
+: 아래의 코드는 순서상 html 태그를 못찾아서 에러 발생
+
+```html
+<script>
+  function 함수() {
+    alert("안녕");
+  }
+
+  const bt = document.querySelector("#bt");
+  // 객체.메소드
+  // 아래 코드는 1번 call 즉, 호출되면서 실행됨
+  // bt.onclick = 함수();
+  // 아래처럼 진행한다. () 를 제거해야 한다.
+  bt.onclick = 함수;
+</script>
+
+<button id="bt">클릭</button>
+```
+
+```html
+<button id="bt">클릭</button>
+
+<script>
+  function 함수() {
+    alert("안녕");
+  }
+  function 함수2() {
+    alert("반가워");
+  }
+
+  const bt = document.querySelector("#bt");
+  // 객체.메소드
+  bt.onclick = 함수;
+  // 기능은 1개 밖에 연결이 안되는 단점이 있다.
+  bt.onclick = 함수2;
+</script>
+```
+
+## 3. JS 태그 이벤트 핸들러 등록 버전
+
+- 아래의 내용을 참조하고 코드 보자.
+  : 여러개의 함수를 등록할 수 있다.
+  : 주의사항은 on 이라는 글자가 제거되어야 함.
+
+```html
+<button id="bt">클릭</button>
+
+<script>
+  function 함수() {
+    alert("안녕");
+  }
+  function 함수2() {
+    alert("반가워");
+  }
+
+  const bt = document.querySelector("#bt");
+  // 객체 이벤트 핸들러 등록 방식
+  // 이벤트 명만 적어야 함. 그래서 오류
+  bt.addEventListener("onclick", 함수);
+  bt.addEventListener("onclick", 함수2);
+  //아래는 이벤트 명을 정확하게 작성하였으므로 정상
+  bt.addEventListener("click", 함수);
+  bt.addEventListener("click", 함수2);
+</script>
+```
+
+## 4. React 버전
+
+- 아래의 내용을 먼저 정리합니다.
+  : 리액트는 JSX 버전이 기본입니다.
+  : 이벤트는 소문자가 아닙니다.
+  : 이벤트는 on소문자에 대문자시작하는 이벤트명입니다.
+  : 이벤트에 연결될 함수는 2가지 방식으로 작성이 가능하다.
+  : 함수명() 로 () 를 붙이면 함수 Call 즉, 실행입니다.
+  : 함수명만 적어주어야 합니다.
+  : 매개변수 전달되는 함수라면 화살표 함수로 감싸주세요.
+
+  ```jsx
+  // 함수가 실행되므로 오류입니다.
+  <JSX onClick={함수명()}></JSX>
+  <JSX onClick={함수명}></JSX>
+  // 매개변수로 값을 전달하고 싶다면
+  <JSX onClick={() => { 함수명(매개변수) } }></JSX>
+
+  <JSX onChange={함수명}></JSX>
+  ```
+
+  : 예)
+
+  ```jsx
+  <button
+    onClick={() => {
+      getTodos("와아아앙");
+    }}
+  >
+    읽기
+  </button>
+  <button
+    onClick={() => {
+      getTodos("ㅋㅋㅋ");
+    }}
+  >
+    하나만 읽기
+  </button>
+  <button
+    onClick={() => {
+      getTodos("ㅎㅎㅎㅎ");
+    }}
+  >
+    쓰기
+  </button>
+  ```
+
+# JS 26장
 
 ```txt
 
-24장 클로저
- 1. 실행 컨텍스트
+25장 클래스
 
-    1.1. 코딩을 했다.
+: 단어에 대한 정의가 있으시면 이해가 좀 편합니다.
 
-        - JS 플레이어(Web Browser) 에서는 2단계 진행
+: 인스턴스, 객체, 프로퍼티, 메소드 를 단어에 대한 이해가 필요
 
-        - 1단계 : 소스 코드 분석 단계 (전역/함수/모듈)
-                : 변수 목록/함수 목록 을 관리
+: 문법에 제시되는 클래스라는 것을 현업에서 많이 쓰는가요?
+ - 외부 소스 활용시 참조가 필요해요.
 
-        - 2단계 : 코드 실행 단계 ( 렉시컬은 변수 찾기 범위 설정 )
-                : 변수 / 함수들의 대한 참조를 결정지어 버린다.
-                : 참조한 내용들의 정보를 절대로 바꾸지 않는다.
+: 다른 프로그래밍을 배우신 분들이 js 에 적응하라고 나온 문법
 
-  2. 클로저
+1. 객체 생성 함수 와 클래스를 같이 비교하면 이해가 편합니다.
 
-  2.1. 함수와 그 함수가 선언된(코딩된) 렉시컬 환경과의 조합이다.
+1.1. 객체 생성자 함수
 
-  - JS 는 함수를 호출 즉 Call 이 아니고, 작성을 하는 순간 모든 참조가 결정된다. (렉시컬 범위가 셋팅 완료)
+     객체      :  인스턴스
+     생성자    :  constructor () { }   // 고정된 이름
+     함수      :  class
 
-  2.2. 외부 렉시컬 환경에 대한 참조도 저장해 둔다.
+    - 객체 생성자 함수
+     function Person(){ }
+     const a = new Person();
 
- 3. 함수 객체
+    - class Person {}
+      const a = mew Person();
 
-  3.1. 함수 도 객체라서 속성이 있다.
+2. 클래스와 생성자 함수의 차이점
 
-       - [[Environment]]
-          : 환경 슬롯 이 이미 코딩된다.
-          : 여기에는 렉시컬 환경 참조, 즉 상위 스코프를 기억한다.
+2.1. 클래스는 new 연산자 없이 호출하면 에러 발생.
+   생성자 함수는 new 연산자 없이 호출하면 일반 함수로서 호출된다.
 
+   function Go(){}   new Go();  Go();
+   class Go {}       Go(); 에러
 
- 4. 클로저의 조건
+2.2. 클래스는 extends와 super 키워드로 상속 가능.
+   생성자 함수는 extends와 super 키워드를 지원하지 않는다.
 
-   4.1. 함수 안에  함수를 만든다.
+   function  강아지() extends 동물
+   {
+       super(); // 에러
+   }
 
-      function Outer() {
-
-            function gogo() {
-            }
-      }
-
-   4.2. 함수 안에  함수를 만든 후 내부에 만든 함수를 리턴한다.
-
-      function Outer() {
-
-            function gogo() {
-            }
-
-            return gogo;
-      }
-
-   4.3. React 예
-
-       const Header = function() {
-
-          const hanldleClck = function(){
-          }
-
-          return ( <div> </> );
-
+   class 강아지 extends 동물 {
+       constructor() {
+         super();
        }
-
-   4.4. 외부 함수 보다 중첩 함수가 더 오래 유지되는 경우
-        중첩 함수는 이미 종료되어 버린 외부 함수의 변수를
-        참조할 수 있다.
-
-        function Out() {
-
-          let age = 10;
-
-          function In() {
-
-               console.log(age)
-
-          }
-
-          return In;
-
-        }
-
-        const gogo = Out();
+   }
 
 
-  5. 클로저 활용
+2.3. 클래스는 호이스팅이 발생하지 않는 것처럼 동작하고,
 
-   5.1. 함부로 접근해서 변수의 상태를 바꾸지 못하게 할 수 없을까?
+   const a = new 강아지();
 
-     : 함수의 지역변수로 만들기 (은닉한다.)
+   class 강아지 {}
 
-     const 가져가 = function(){
+  함수 선언문으로 정의된 생성자 함수는 함수 호이스팅이,
 
-        let 돈 = 100;
-        return 돈 --;
+    const go = new 강아지();
+    function 강아지() {}
+
+  함수 표현식으로 정의한 생성자 함수는 변수 호이스팅이 발생한다.
+
+  const 강아지 = function() {}
+  const go = new 강아지();
+
+
+2.4. 클래스 내부에는 자동으로 strict mode가 지정되며 해제할 수 없다.
+   생성자 함수는 직접 지정해 줘야한다.
+
+2.5. 클래스의 constructor, 프로토타입 메서드, 정적 메서드는 모두 열거되지 않는다.(`[[Enumerable]]`⇒`false`)
+
+ 3. 클래스에서 정의한 메소드의 특징
+ class Person {
+     // new Person() 하면 자동 실행 되는 메서드 : 인스턴스 생성자 함수
+     constructor() {
+        // return this; // new 해서 만들어진 인스턴스를 리턴합니다.
      }
 
-     console.log(돈) // 에러
+    // 일반 메소드
+    sayHi() {}
+    sayBye() {}
 
-     돈 이라는 변수에 접근할 수 없다.
+    // 클래스 메소드로서 Person.go() : 반드시 클래스명을 적고 실행
+    static go() {}
 
-   5.2. 외부에서 함수에 만든 지역 변수를 접근할 수 없을까?
+ }
 
-    const 가져가 = function(){
+ 4. 접근제한자
 
-        let 돈 = 100;
-        return 돈 --;
-     }
+   private   속성  :  외부에서 읽기, 쓰기, 변경 안되요.
+   public    속성  :  외부에서 읽기, 쓰기, 변경 다~~되요
+   protected 속성  :  허락된 환경만 읽기, 쓰기, 변경 다~~되요
 
-      가져가(); // 99
-      가져가(); // 99
-      가져가(); // 99
+ 5. 접근자 프로퍼티
 
-      const 가져가 = function(){
+ class Person = {
 
-        let 돈 = 100;
+   // 클래스 필드 : 클래스에 정의한 속성
+    #firstName: "Ungmo",
 
-        function 돈빼기() {
-           return 돈--
-        }
-
-        return 돈빼기;
-     }
-
-     const 결과 = 가져가();
-     결과();
-     결과();
-     결과();
-     결과();
-
-
-
-  6. 클로저란?
-  6.1. 함수에서 내부 함수를 리턴한다.
-  6.2. 내부 함수는 외부의 변수를 사용한다.
-  6.3. 이렇게 하면 데이터를 외부에서 접근할 수 없으므로 데이터를 은닉할 수 있다.
-  6.4. 데이터에 접근하는 내부 함수를 통해서만 접근할 수 있으므로 안전한다.
-
-
-  function 회원정보() {
-
-    let 사용자레벨 = 1;  회원
-    return function() {
-      return 사용자레벨++;
+    get fullName() {
+      return this.firstName;
     }
-  }
 
-  const 회원업데이트 = 회원정보();
-  회원업데이트();
-  회원업데이트();
-  회원업데이트();
-  회원업데이트();
+    set fullName(ha) {
+       this.firstName = ha
+    }
+ }
 
-  7. 고차함수
+ const go = new Person();
+ go.fullName;
+ go.fullName = "홍길동";
 
-  7.1. 면접볼떄 자주 나오는 내용
-  7.2. 함수에 함수를 매개변수로 전달한다.
+ 6. 상속에 의한 클래스 확장 ( extends )
 
-  배열.map(고차함수);
-  배열.map( function(item, index, arr){     } )
+ : 오로지 class 에만 작성 가능
+ : 속성과 메소드 상속
+ : 자기만의 속성과 메소드 정의로 확장
+
+```
+
+# JS 26장
+
+```txt
+26 장
+
+1. 우리 반 만 정의한 호칭
+
+- 이제부터 함수 와 메소드 를 명칭을 컨벤션하겠습니다.
+
+- 일반 함수
+  function 함수명() {}
+
+- 객체 함수
+ {
+    함수명: function(){}
+ }
+
+- 메소드
+ {
+   함수명() {}
+ }
+
+2. 화살표 함수
+
+2.1. 매개 변수 가 있을 때 모양을 신경쓰자.
+
+ - (x, y) => return x + y;
+
+ - x => return x;
+
+ - () => return 1 + 2;
 
 
-  8. 클로저
+2.2. return 도 신경 써요.
 
-  8.1. 목적은 데이터를 안전하게 보관한다. 즉, 외부에서 함부로 접근못하게 한다.
-  8.2. 데이터를 변경해야 할 경우 내부 함수로 변경한다.
+ : return 작성을 하지 않아도 자동으로 기재 됩니다.
+ : 아래는 기본형입니다.
 
-  function 은행() {
+ 2.2.1. 실행해야 하는 함수 블록이 1 줄이라면
 
-     let 잔고 = 0;
+ - (x, y) => {
+        return x + y;
+    }
 
-     return {
+ : 한줄이라서 {} 이 생략가능
+ - (x, y) => return x + y;
 
-        입금(_money) {
-           return this.잔고 + _money
-        }
+ : 바로 리턴되는 경우는 return 생략 됨.
+ - (x, y) => x + y;
 
-        출금(_money) {
-           return this.잔고 - _money
-        }
-     }
 
-  }
+ 2.2.2. 실행해야 하는 함수 블록이 1 줄 이상이라면
 
-  const 홍길동 = new 은행();
-  홍길동.입금(100)
-  홍길동.출금(50)
+ - (x, y) => {
+        const a = x + y;
+        return a;
+    }
+
+ : 한줄이라서 {} 이 생략 불가능
+ - (x, y) =>  const a = x + y;
+          return x + y; // 오류
+
+
+ 2.2.3. 실행해야 하는 함수가   객체 리터럴을 return 하면 ?
+
+ - (x, y) => {
+        return {a:x, b:y};
+    }
+
+:  1줄이라서 {} 제거, 1줄 리턴하길래 return 도 제거
+
+ - (x, y) => { a:x, b:y }; // 오류
+
+ - (x, y) => ( { a:x, b:y } ); // 정상
+
+ 3. Rest 파라메터
+
+ 3.1. 파라메터 ( ... parameter )   함수 ( ...매개 변수 )
+
+  : ...매개 변수 는 [] 입니다.
+
+  : ...매개 변수 는 arguments 를 대체합니다.
+
+  3.2. Rest 파라메터 위치를 살펴보면
+
+  : 나머지를 받아서 배열로 만든다.
+  : 함수(a, ...rest,  c) // 오류
+  : 함수(a, c, ...rest ) // 정상
+
+  4. 함수의 매개변수의 기본값도 셋팅 가능
+  : 함수( a = 1,  b = {age:5}, c = 3 ) { }
 ```
