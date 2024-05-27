@@ -507,3 +507,224 @@ export const SERVER_URL = "http://localhost:5000";
   4. 함수의 매개변수의 기본값도 셋팅 가능
   : 함수( a = 1,  b = {age:5}, c = 3 ) { }
 ```
+
+# JS 27 배열
+
+```txt
+27 장 배열
+
+ : 저는 배열을 책장으로 비유하겠습니다.
+
+ 1. 명칭에 대한 이해가 필수
+
+ - 요소?  특정한 칸에 보관하는 값이다.
+
+ - 인덱스?  특정한 칸에 번호를 말함.
+           시작부분부터 <  도착 전까지
+
+ - 길이?    length (칸의 개수)
+
+
+
+ 2. 왜 필요하니?
+
+  쇼핑몰 운영자
+
+  function GoodRegister = function(이름, 가격, 판매, 할인, 전시장소 = "추천상품"){
+    return  {
+              이름:이름,
+              가격: 가격,
+              판매:판매,
+              할인: 할인,
+              전시장소: 전시장소,
+              인사말: function() { alert(this.이름 + "구매해주셔서 감사합니다.")
+              }
+      };
+  }
+  const 사과 = new GoodRegister("사과", 1000, true, 0.5}
+  const 딸기 = new GoodRegister("딸기", 5000, false, 1.0}
+
+  const good_arr = [사과, 딸기];
+
+ 3. 기능들?
+    기준은 원본 배열을 훼손 함수
+    기준은 원본 배열을 유지하고 복사해서 결과를 돌려주는 함수
+    function go(...arr){}
+
+     [...arr]
+
+ 4. 원본을 훼손하는 것과 원본을 복사하여서 원본을 유지하고 복사본을 사용하는 이유?
+    React 의  Re-Rendering 을 위해서
+
+ 5. 배열에서 고차함수들의 기본형을 꼭!!! 알자
+   : 원본 데이터 불변성 유지
+   : 배열.함수명( (요소, index, 복사배열 ) =>  {   .....   } )
+
+
+  직렬화 ====> 문자열만들기
+
+  redux  ====>   reduce 를 보고 이름 정함
+
+  [1,2,3,4].reduce( (acc, cur, index, arr) => acc + cur,   0  )
+```
+
+# XHR, fetch, axios, ajax (제이쿼리) 로 api 연동
+
+1.  클라이언트 : 서버를 이용하는 컴퓨터
+
+2.  서버 : 인터넷에 주소와 포트를 공개한 컴퓨터
+
+2.1. 웹 서버
+
+: 클라이언트가 요청(Request)을 보내면 받아서
+: 데이터베이스에 CRUD 를 요청하고
+: 다시 클라이언트에게 응답(Response) 하는 용도의 컴퓨터
+: 일반적으로 html, css, js 도 함께 만들어서 제공하는 경우를 말합니다.
+
+2.2. API 서버
+
+: 클라이언트가 요청(Request)을 보내면 받아서
+: 데이터베이스에 CRUD 를 요청하고
+: 다시 클라이언트에게 응답(Response) 하는 용도의 컴퓨터
+: 일반적으로 형태가 JSON 형태
+
+2.2. 데이터베이스 서버
+: 테이블 모양의 데이터 베이스 프로그램(MySql, Oracle, MSSql, Maria DB)
+: 문서 형태의 데이터 베이스 프로그램 (MongoDB, FireBase)
+============================================= 3. api 연동
+3.1. XHR 를 이용한 연동
+: Xml Http Request
+예제)
+const xhr = new XMLHttpRequest();
+const method = "GET";
+const url = "https://7942yongdae.tistory.com/";
+
+    // 요청을 초기화 합니다.
+    xhr.open(method, url);
+
+    // onreadystatechange 이벤트를 이용해 요청에 대한 응답 결과를 처리합니다.
+    xhr.onreadystatechange = function (event) {
+        const { target } = event;
+
+        if (target.readyState === XMLHttpRequest.DONE) {
+            const { status } = target;
+
+            if (status === 0 || (status >= 200 && status < 400)) {
+                // 요청이 정상적으로 처리 된 경우
+            } else {
+                // 에러가 발생한 경우
+            }
+        }
+    };
+
+    // 서버에 요청을 보냅니다.
+    xhr.send();
+
+3.2. fetch 를 이용한 연동
+
+예)
+const method = "GET";
+const url = "https://7942yongdae.tistory.com/";
+
+    fetch(url, {
+        method: method
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.text(); // 응답이 성공적인 경우
+        } else {
+            throw new Error('Network response was not ok.'); // 에러가 발생한 경우
+        }
+    })
+    .then(data => {
+        // 여기서 응답 데이터를 처리합니다.
+        console.log(data);
+    })
+    .catch(error => {
+        // 여기서 에러를 처리합니다.
+        console.error('There has been a problem with your fetch operation:', error);
+    });
+
+3.3. axios 를 이용한 연동
+
+const method = "GET";
+const url = "https://7942yongdae.tistory.com/";
+
+axios({
+method: method,
+url: url
+})
+.then(response => {
+// 요청이 정상적으로 처리된 경우
+console.log(response.data); // 응답 데이터를 처리합니다.
+})
+.catch(error => {
+// 에러가 발생한 경우
+if (error.response) {
+// 서버가 응답했지만 상태 코드는 2xx 범위 밖에 있는 경우
+console.error('Error:', error.response.status, error.response.statusText);
+} else if (error.request) {
+// 요청이 만들어졌지만 응답을 받지 못한 경우
+console.error('No response received:', error.request);
+} else {
+// 요청을 설정하는 중에 문제가 발생한 경우
+console.error('Error setting up request:', error.message);
+}
+});
+
+3.4. ajax 를 이용한 연동
+
+const method = "GET";
+const url = "https://7942yongdae.tistory.com/";
+
+$.ajax({
+method: method,
+url: url,
+success: function(data) {
+// 요청이 정상적으로 처리된 경우
+console.log(data);
+},
+error: function(jqXHR, textStatus, errorThrown) {
+// 에러가 발생한 경우
+console.error('Error:', textStatus, errorThrown);
+}
+});
+
+================================ 4. fetch 상세 문법 살펴보기
+
+4.1. 기본문법  
+ // https://developer.mozilla.org/ko/docs/Web/API/Fetch_API/Using_Fetch
+// POST 메서드 구현 예제
+async function postData(url = "", data = {}) {
+// 옵션 기본 값은 *로 강조
+const response = await fetch(url, {
+method: "POST", // *GET, POST, PUT, DELETE 등
+mode: "cors", // no-cors, *cors, same-origin
+cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+credentials: "same-origin", // include, *same-origin, omit
+headers: {
+"Content-Type": "application/json",
+// 'Content-Type': 'application/x-www-form-urlencoded',
+},
+redirect: "follow", // manual, *follow, error
+referrerPolicy: "no-referrer", // no-referrer, \*no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+body: JSON.stringify(data), // body의 데이터 유형은 반드시 "Content-Type" 헤더와 일치해야 함
+});
+return response.json(); // JSON 응답을 네이티브 JavaScript 객체로 파싱
+}
+
+postData("https://example.com/answer", { answer: 42 }).then((data) => {
+console.log(data); // JSON 데이터가 `data.json()` 호출에 의해 파싱됨
+});
+
+5. 나머지 메소드도 그런지?
+
+const instance = axios.create({
+baseURL: 'https://some-domain.com/api/',
+timeout: 1000,
+headers: {'X-Custom-Header': 'foobar'}
+});
+
+# Swiper 적용
+
+: [Swiper](https://swiperjs.com/demos)
